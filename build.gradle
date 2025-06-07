@@ -59,3 +59,7 @@ task cleanTestDb {
 }
 
 clean.dependsOn cleanTestDb
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
