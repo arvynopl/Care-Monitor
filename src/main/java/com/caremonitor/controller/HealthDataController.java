@@ -3,10 +3,21 @@ package com.caremonitor.controller;
 
 import com.caremonitor.model.DatabaseManager;
 import com.caremonitor.model.HealthData;
+import com.caremonitor.model.Patient;
 // import com.caremonitor.model.CriticalParameter;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+
+import java.io.FileOutputStream;
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -180,5 +191,60 @@ public class HealthDataController {
         }
         
         return abnormalParams;
+    }
+
+    public void generatePDFReport(String filePath, Patient patient,
+                                  LocalDateTime fromDate, LocalDateTime toDate) throws Exception {
+        List<HealthData> healthDataList =
+            getHealthDataByPatientIdAndDateRange(patient.getId(), fromDate, toDate);
+
+        try (FileOutputStream fos = new FileOutputStream(filePath)) {
+            Document document = new Document();
+            PdfWriter.getInstance(document, fos);
+            try {
+                document.open();
+
+                Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18);
+                Paragraph title = new Paragraph("Health Report - " + patient.getName(), titleFont);
+                title.setAlignment(Element.ALIGN_CENTER);
+                document.add(title);
+                document.add(new Paragraph(" "));
+
+                Font headerFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12);
+                document.add(new Paragraph("Patient Information:", headerFont));
+                document.add(new Paragraph("Name: " + patient.getName()));
+                document.add(new Paragraph("Age: " + patient.getAge()));
+                document.add(new Paragraph("Gender: " + patient.getGender()));
+                document.add(new Paragraph("Address: " + patient.getAddress()));
+                document.add(new Paragraph(" "));
+
+                document.add(new Paragraph("Report Period: " + fromDate + " to " + toDate, headerFont));
+                document.add(new Paragraph(" "));
+
+                document.add(new Paragraph("Health Data Records:", headerFont));
+
+                PdfPTable table = new PdfPTable(5);
+                table.setWidthPercentage(100);
+
+                table.addCell("Date & Time");
+                table.addCell("Heart Rate");
+                table.addCell("Temperature");
+                table.addCell("Blood Pressure");
+                table.addCell("Position");
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+                for (HealthData data : healthDataList) {
+                    table.addCell(data.getTimestamp().format(formatter));
+                    table.addCell(String.valueOf(data.getHeartRate()));
+                    table.addCell(String.format("%.1f", data.getTemperature()));
+                    table.addCell(data.getBloodPressure());
+                    table.addCell(data.getPosition());
+                }
+
+                document.add(table);
+            } finally {
+                document.close();
+            }
+        }
     }
 }
