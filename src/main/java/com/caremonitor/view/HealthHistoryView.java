@@ -533,8 +533,9 @@ public class HealthHistoryView {
     }
 
     private void generatePDF(String filePath, Patient patient) {
-        try (Document document = new Document();
-             FileOutputStream fos = new FileOutputStream(filePath)) {
+        Document document = null;
+        try (FileOutputStream fos = new FileOutputStream(filePath)) {
+            document = new Document();
             PdfWriter.getInstance(document, fos);
             document.open();
             
@@ -588,6 +589,10 @@ public class HealthHistoryView {
                 "Error generating PDF: " + e.getMessage(),
                 "Error",
                 JOptionPane.ERROR_MESSAGE);
+        } finally {
+            if (document != null) {
+                document.close();
+            }
         }
     }
 
