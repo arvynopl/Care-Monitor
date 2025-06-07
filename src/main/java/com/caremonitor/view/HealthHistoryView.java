@@ -43,6 +43,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import com.caremonitor.util.DialogUtil;
 import java.text.SimpleDateFormat;
 
 public class HealthHistoryView {
@@ -335,9 +336,9 @@ public class HealthHistoryView {
     private void applyFilter() {
         int selectedIndex = patientComboBox.getSelectedIndex();
         if (selectedIndex <= 0) {
-            JOptionPane.showMessageDialog(mainPanel, 
-                "Please select a patient first.", 
-                "Warning", 
+            DialogUtil.showMessage(mainPanel,
+                "Please select a patient first.",
+                "Warning",
                 JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -490,9 +491,9 @@ public class HealthHistoryView {
     private void downloadPDF() {
         int selectedIndex = patientComboBox.getSelectedIndex();
         if (selectedIndex <= 0) {
-            JOptionPane.showMessageDialog(mainPanel, 
-                "Please select a patient first.", 
-                "Warning", 
+            DialogUtil.showMessage(mainPanel,
+                "Please select a patient first.",
+                "Warning",
                 JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -559,16 +560,16 @@ public class HealthHistoryView {
             document.add(table);
             document.close();
             
-            JOptionPane.showMessageDialog(mainPanel, 
-                "PDF report generated successfully!\nSaved to: " + filePath, 
-                "Success", 
+            DialogUtil.showMessage(mainPanel,
+                "PDF report generated successfully!\nSaved to: " + filePath,
+                "Success",
                 JOptionPane.INFORMATION_MESSAGE);
             
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(mainPanel, 
-                "Error generating PDF: " + e.getMessage(), 
-                "Error", 
+            DialogUtil.showMessage(mainPanel,
+                "Error generating PDF: " + e.getMessage(),
+                "Error",
                 JOptionPane.ERROR_MESSAGE);
         }
     }
