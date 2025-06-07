@@ -490,11 +490,27 @@ public class HealthHistoryView {
         }
 
         Patient selectedPatient = patients.get(selectedIndex - 1);
-        
+
+        LocalDateTime fromDateTime = ((Date) fromDateSpinner.getValue()).toInstant()
+                .atZone(ZoneId.systemDefault()).toLocalDateTime();
+        LocalDateTime toDateTime = ((Date) toDateSpinner.getValue()).toInstant()
+                .atZone(ZoneId.systemDefault()).toLocalDateTime();
+
+        List<HealthData> reportData = healthDataController.getHealthDataByPatientIdAndDateRange(
+                selectedPatient.getId(), fromDateTime, toDateTime);
+
+        if (reportData.isEmpty()) {
+            DialogUtil.showMessage(mainPanel,
+                "No data available for the selected period.",
+                "No Data",
+                JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Save PDF Report");
         fileChooser.setSelectedFile(new java.io.File("health_report_" + selectedPatient.getName().replaceAll("\\s+", "_") + ".pdf"));
-        
+
         int userSelection = fileChooser.showSaveDialog(mainPanel);
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             String filePath = fileChooser.getSelectedFile().getAbsolutePath();
@@ -511,10 +527,6 @@ public class HealthHistoryView {
 
                 @Override
                 protected Void doInBackground() {
-                    LocalDateTime fromDateTime = ((Date) fromDateSpinner.getValue()).toInstant()
-                            .atZone(ZoneId.systemDefault()).toLocalDateTime();
-                    LocalDateTime toDateTime = ((Date) toDateSpinner.getValue()).toInstant()
-                            .atZone(ZoneId.systemDefault()).toLocalDateTime();
                     try {
                         healthDataController.generatePDFReport(finalFilePath, selectedPatient, fromDateTime, toDateTime);
                     } catch (Exception ex) {
