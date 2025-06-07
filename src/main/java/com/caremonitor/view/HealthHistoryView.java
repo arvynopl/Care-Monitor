@@ -343,7 +343,7 @@ public class HealthHistoryView {
             return;
         }
 
-        Patient selectedPatient = patients.get(selectedIndex - 1);
+        final Patient selectedPatient = patients.get(selectedIndex - 1);
         Date fromDate = (Date) fromDateSpinner.getValue();
         Date toDate = (Date) toDateSpinner.getValue();
 
@@ -510,6 +510,7 @@ public class HealthHistoryView {
             if (!filePath.toLowerCase().endsWith(".pdf")) {
                 filePath += ".pdf";
             }
+            final String finalFilePath = filePath;
 
             downloadPdfButton.setEnabled(false);
             downloadPdfButton.setText("Generating...");
@@ -517,7 +518,7 @@ public class HealthHistoryView {
             SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
                 @Override
                 protected Void doInBackground() {
-                    generatePDF(filePath, selectedPatient);
+                    generatePDF(finalFilePath, selectedPatient);
                     return null;
                 }
 
