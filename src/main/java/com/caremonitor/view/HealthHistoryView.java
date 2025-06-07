@@ -18,14 +18,6 @@ import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.DateAxis;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.FontFactory;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -33,7 +25,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileOutputStream;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -516,9 +507,19 @@ public class HealthHistoryView {
             downloadPdfButton.setText("Generating...");
 
             SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+                private Exception error;
+
                 @Override
                 protected Void doInBackground() {
-                    generatePDF(finalFilePath, selectedPatient);
+                    LocalDateTime fromDateTime = ((Date) fromDateSpinner.getValue()).toInstant()
+                            .atZone(ZoneId.systemDefault()).toLocalDateTime();
+                    LocalDateTime toDateTime = ((Date) toDateSpinner.getValue()).toInstant()
+                            .atZone(ZoneId.systemDefault()).toLocalDateTime();
+                    try {
+                        healthDataController.generatePDFReport(finalFilePath, selectedPatient, fromDateTime, toDateTime);
+                    } catch (Exception ex) {
+                        error = ex;
+                    }
                     return null;
                 }
 
@@ -526,6 +527,17 @@ public class HealthHistoryView {
                 protected void done() {
                     downloadPdfButton.setEnabled(true);
                     downloadPdfButton.setText("Download PDF");
+                    if (error == null) {
+                        DialogUtil.showMessage(mainPanel,
+                            "PDF report generated successfully!\nSaved to: " + finalFilePath,
+                            "Success",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        DialogUtil.showMessage(mainPanel,
+                            "Error generating PDF: " + error.getMessage(),
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             };
 
@@ -533,69 +545,6 @@ public class HealthHistoryView {
         }
     }
 
-    private void generatePDF(String filePath, Patient patient) {
-        try (FileOutputStream fos = new FileOutputStream(filePath)) {
-            Document document = new Document();
-            PdfWriter.getInstance(document, fos);
-            try {
-                document.open();
-            
-            Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18);
-            Paragraph title = new Paragraph("Health Report - " + patient.getName(), titleFont);
-            title.setAlignment(Element.ALIGN_CENTER);
-            document.add(title);
-            document.add(new Paragraph(" "));
-            
-            Font headerFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12);
-            document.add(new Paragraph("Patient Information:", headerFont));
-            document.add(new Paragraph("Name: " + patient.getName()));
-            document.add(new Paragraph("Age: " + patient.getAge()));
-            document.add(new Paragraph("Gender: " + patient.getGender()));
-            document.add(new Paragraph("Address: " + patient.getAddress()));
-            document.add(new Paragraph(" "));
-            
-            Date fromDate = (Date) fromDateSpinner.getValue();
-            Date toDate = (Date) toDateSpinner.getValue();
-            document.add(new Paragraph("Report Period: " + fromDate + " to " + toDate, headerFont));
-            document.add(new Paragraph(" "));
-            
-            document.add(new Paragraph("Health Data Records:", headerFont));
-            
-            PdfPTable table = new PdfPTable(5);
-            table.setWidthPercentage(100);
-            
-            table.addCell("Date & Time");
-            table.addCell("Heart Rate");
-            table.addCell("Temperature");
-            table.addCell("Blood Pressure");
-            table.addCell("Position");
-            
-            for (int i = 0; i < tableModel.getRowCount(); i++) {
-                for (int j = 0; j < tableModel.getColumnCount(); j++) {
-                    Object value = tableModel.getValueAt(i, j);
-                    table.addCell(value != null ? value.toString() : "");
-                }
-            }
-            
-            document.add(table);
-
-            DialogUtil.showMessage(mainPanel,
-                "PDF report generated successfully!\nSaved to: " + filePath,
-                "Success",
-                JOptionPane.INFORMATION_MESSAGE);
-            
-        } finally {
-            document.close();
-
-        }
-        } catch (Exception e) {
-            e.printStackTrace();
-            DialogUtil.showMessage(mainPanel,
-                "Error generating PDF: " + e.getMessage(),
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-        }
-    }
 
     public JPanel getMainPanel() {
         return mainPanel;
