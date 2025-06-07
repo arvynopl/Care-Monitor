@@ -509,7 +509,25 @@ public class HealthHistoryView {
             if (!filePath.toLowerCase().endsWith(".pdf")) {
                 filePath += ".pdf";
             }
-            generatePDF(filePath, selectedPatient);
+
+            downloadPdfButton.setEnabled(false);
+            downloadPdfButton.setText("Generating...");
+
+            SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+                @Override
+                protected Void doInBackground() {
+                    generatePDF(filePath, selectedPatient);
+                    return null;
+                }
+
+                @Override
+                protected void done() {
+                    downloadPdfButton.setEnabled(true);
+                    downloadPdfButton.setText("Download PDF");
+                }
+            };
+
+            worker.execute();
         }
     }
 
