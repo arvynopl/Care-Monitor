@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.caremonitor.model.HealthDataTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-06-07T05:51:00.220Z" hostname="LAPTOP-JVCOBRFH" time="0.002">
+  <properties/>
+  <testcase name="testHeartRateIntCompatibility()" classname="com.caremonitor.model.HealthDataTest" time="0.0"/>
+  <testcase name="testSettersAndGetters()" classname="com.caremonitor.model.HealthDataTest" time="0.001"/>
+  <testcase name="testTimestampCompatibility()" classname="com.caremonitor.model.HealthDataTest" time="0.0"/>
+  <testcase name="testDefaultConstructorSetsTimestamp()" classname="com.caremonitor.model.HealthDataTest" time="0.001"/>
+  <testcase name="testHealthDataConstructorWithParameters()" classname="com.caremonitor.model.HealthDataTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
