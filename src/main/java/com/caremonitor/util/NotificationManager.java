@@ -3,16 +3,21 @@ package com.caremonitor.util;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class NotificationManager {
     private static NotificationManager instance;
+    /**
+     * Tracks when notifications were last shown. This map must be thread-safe
+     * because {@link #showNotification(String, String, String)} may be invoked
+     * from multiple threads.
+     */
     private Map<String, Long> lastNotificationTime;
     private static final long NOTIFICATION_COOLDOWN = 30000; 
     
     private NotificationManager() {
-        lastNotificationTime = new HashMap<>();
+        lastNotificationTime = new ConcurrentHashMap<>();
     }
     
     public static synchronized NotificationManager getInstance() {
@@ -25,7 +30,12 @@ public class NotificationManager {
     public void showNotification(String title, String message, int patientId) {
         showNotification(title, message, String.valueOf(patientId));
     }
-    
+
+    /**
+     * Displays a notification if it has not been shown recently for the given
+     * key. The implementation may be accessed by multiple threads so it relies
+     * on {@code lastNotificationTime} being a thread-safe map.
+     */
     public void showNotification(String title, String message, String notificationKey) {
         long currentTime = System.currentTimeMillis();
         
