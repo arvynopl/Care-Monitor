@@ -514,9 +514,9 @@ public class HealthHistoryView {
     }
 
     private void generatePDF(String filePath, Patient patient) {
-        try {
-            Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream(filePath));
+        try (Document document = new Document();
+             FileOutputStream fos = new FileOutputStream(filePath)) {
+            PdfWriter.getInstance(document, fos);
             document.open();
             
             Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18);
@@ -557,7 +557,6 @@ public class HealthHistoryView {
             }
             
             document.add(table);
-            document.close();
             
             JOptionPane.showMessageDialog(mainPanel, 
                 "PDF report generated successfully!\nSaved to: " + filePath, 
