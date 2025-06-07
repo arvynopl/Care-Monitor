@@ -534,11 +534,11 @@ public class HealthHistoryView {
     }
 
     private void generatePDF(String filePath, Patient patient) {
-        Document document = null;
         try (FileOutputStream fos = new FileOutputStream(filePath)) {
-            document = new Document();
+            Document document = new Document();
             PdfWriter.getInstance(document, fos);
-            document.open();
+            try {
+                document.open();
             
             Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18);
             Paragraph title = new Paragraph("Health Report - " + patient.getName(), titleFont);
@@ -578,22 +578,22 @@ public class HealthHistoryView {
             }
             
             document.add(table);
-            
+
             DialogUtil.showMessage(mainPanel,
                 "PDF report generated successfully!\nSaved to: " + filePath,
                 "Success",
                 JOptionPane.INFORMATION_MESSAGE);
             
+        } finally {
+            document.close();
+
+        }
         } catch (Exception e) {
             e.printStackTrace();
             DialogUtil.showMessage(mainPanel,
                 "Error generating PDF: " + e.getMessage(),
                 "Error",
                 JOptionPane.ERROR_MESSAGE);
-        } finally {
-            if (document != null) {
-                document.close();
-            }
         }
     }
 
