@@ -14,7 +14,8 @@ public class NotificationManager {
      * from multiple threads.
      */
     private Map<String, Long> lastNotificationTime;
-    private static final long NOTIFICATION_COOLDOWN = 30000; 
+    private static final long NOTIFICATION_COOLDOWN = 30000;
+    private volatile long cooldownTimeMs = NOTIFICATION_COOLDOWN;
     
     private NotificationManager() {
         lastNotificationTime = new ConcurrentHashMap<>();
@@ -40,7 +41,7 @@ public class NotificationManager {
         long currentTime = System.currentTimeMillis();
         
         Long lastTime = lastNotificationTime.get(notificationKey);
-        if (lastTime == null || (currentTime - lastTime) > NOTIFICATION_COOLDOWN) {
+        if (lastTime == null || (currentTime - lastTime) > cooldownTimeMs) {
             
             SwingUtilities.invokeLater(() -> {
                 JDialog dialog = new JDialog((Frame) null, title, true);
@@ -100,6 +101,7 @@ public class NotificationManager {
         lastNotificationTime.clear();
     }
     
-    public void setCooldownTime(long cooldownMs) {
+    public synchronized void setCooldownTime(long cooldownMs) {
+        this.cooldownTimeMs = cooldownMs;
     }
 }
