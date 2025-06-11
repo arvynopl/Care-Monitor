@@ -6,6 +6,7 @@ import com.caremonitor.controller.AuthController;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import com.caremonitor.view.theme.UIStyles;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -15,9 +16,6 @@ public class LoginView extends JFrame {
     private JButton loginButton;
     private AuthController authController;
     
-    private final Color DARK_BLUE = new Color(0, 32, 96);
-    private final Color LIGHT_BLUE = new Color(59, 130, 246);
-    private final Color FIELD_BORDER = new Color(209, 213, 219);
 
     public LoginView() {
         authController = new AuthController(this);
@@ -37,22 +35,22 @@ public class LoginView extends JFrame {
         loginButton = new JButton("Log In");
         
         emailField.setPreferredSize(new Dimension(300, 45));
-        emailField.setFont(new Font("Arial", Font.PLAIN, 14));
+        emailField.setFont(UIStyles.ARIAL_PLAIN_14);
         emailField.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(FIELD_BORDER, 1),
+            BorderFactory.createLineBorder(UIStyles.FIELD_BORDER, 1),
             BorderFactory.createEmptyBorder(10, 15, 10, 15)
         ));
         
         passwordField.setPreferredSize(new Dimension(300, 45));
-        passwordField.setFont(new Font("Arial", Font.PLAIN, 14));
+        passwordField.setFont(UIStyles.ARIAL_PLAIN_14);
         passwordField.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(FIELD_BORDER, 1),
+            BorderFactory.createLineBorder(UIStyles.FIELD_BORDER, 1),
             BorderFactory.createEmptyBorder(10, 15, 10, 15)
         ));
         
         loginButton.setPreferredSize(new Dimension(300, 45));
-        loginButton.setFont(new Font("Arial", Font.BOLD, 16));
-        loginButton.setBackground(DARK_BLUE);
+        loginButton.setFont(UIStyles.ARIAL_BOLD_16);
+        loginButton.setBackground(UIStyles.DARK_BLUE);
         loginButton.setForeground(Color.WHITE);
         loginButton.setFocusPainted(false);
         loginButton.setBorderPainted(false);
@@ -60,10 +58,10 @@ public class LoginView extends JFrame {
         
         loginButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                loginButton.setBackground(new Color(0, 45, 120));
+                loginButton.setBackground(UIStyles.DARKER_BLUE);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                loginButton.setBackground(DARK_BLUE);
+                loginButton.setBackground(UIStyles.DARK_BLUE);
             }
         });
     }
@@ -73,22 +71,22 @@ public class LoginView extends JFrame {
         mainPanel.setBackground(Color.WHITE);
         
         JPanel leftPanel = new JPanel();
-        leftPanel.setBackground(DARK_BLUE);
+        leftPanel.setBackground(UIStyles.DARK_BLUE);
         leftPanel.setPreferredSize(new Dimension(500, 0));
         
         JPanel logoPanel = new JPanel();
-        logoPanel.setBackground(DARK_BLUE);
+        logoPanel.setBackground(UIStyles.DARK_BLUE);
         logoPanel.setLayout(new BoxLayout(logoPanel, BoxLayout.Y_AXIS));
         logoPanel.setBorder(new EmptyBorder(100, 50, 50, 50));
         
         JLabel logoLabel = new JLabel("Care Monitor");
-        logoLabel.setFont(new Font("Arial", Font.BOLD, 36));
+        logoLabel.setFont(UIStyles.ARIAL_BOLD_36);
         logoLabel.setForeground(Color.WHITE);
         logoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         JLabel subtitleLabel = new JLabel("Health Monitoring System");
-        subtitleLabel.setFont(new Font("Arial", Font.PLAIN, 18));
-        subtitleLabel.setForeground(new Color(200, 200, 200));
+        subtitleLabel.setFont(UIStyles.ARIAL_PLAIN_18);
+        subtitleLabel.setForeground(UIStyles.SUBTITLE_GRAY);
         subtitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         logoPanel.add(Box.createVerticalGlue());
@@ -110,13 +108,13 @@ public class LoginView extends JFrame {
         formPanel.setMaximumSize(new Dimension(400, 500));
         
         JLabel titleLabel = new JLabel("Log In");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 32));
-        titleLabel.setForeground(new Color(31, 41, 55));
+        titleLabel.setFont(UIStyles.ARIAL_BOLD_32);
+        titleLabel.setForeground(UIStyles.TEXT_DARK);
         titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         
         JLabel emailLabel = new JLabel("Email");
-        emailLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        emailLabel.setForeground(new Color(75, 85, 99));
+        emailLabel.setFont(UIStyles.ARIAL_PLAIN_14);
+        emailLabel.setForeground(UIStyles.TEXT_MEDIUM);
         emailLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         emailLabel.setBorder(new EmptyBorder(0, 0, 8, 0));
         
@@ -124,8 +122,8 @@ public class LoginView extends JFrame {
         emailField.setMaximumSize(new Dimension(300, 45));
         
         JLabel passwordLabel = new JLabel("Password");
-        passwordLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        passwordLabel.setForeground(new Color(75, 85, 99));
+        passwordLabel.setFont(UIStyles.ARIAL_PLAIN_14);
+        passwordLabel.setForeground(UIStyles.TEXT_MEDIUM);
         passwordLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         passwordLabel.setBorder(new EmptyBorder(0, 0, 8, 0));
         
@@ -141,12 +139,12 @@ public class LoginView extends JFrame {
         registerPanel.setMaximumSize(new Dimension(300, 30));
         
         JLabel dontHaveLabel = new JLabel("Don't have account? ");
-        dontHaveLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        dontHaveLabel.setForeground(new Color(107, 114, 128));
+        dontHaveLabel.setFont(UIStyles.ARIAL_PLAIN_14);
+        dontHaveLabel.setForeground(UIStyles.TEXT_LIGHT);
         
         JButton signUpLink = new JButton("Sign up");
-        signUpLink.setFont(new Font("Arial", Font.PLAIN, 14));
-        signUpLink.setForeground(LIGHT_BLUE);
+        signUpLink.setFont(UIStyles.ARIAL_PLAIN_14);
+        signUpLink.setForeground(UIStyles.LIGHT_BLUE);
         signUpLink.setBorderPainted(false);
         signUpLink.setContentAreaFilled(false);
         signUpLink.setCursor(new Cursor(Cursor.HAND_CURSOR));
