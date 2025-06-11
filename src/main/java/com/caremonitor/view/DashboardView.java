@@ -61,7 +61,7 @@ public class DashboardView {
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
         splitPane.setBorder(BorderFactory.createEmptyBorder(10, 20, 20, 20));
         splitPane.setDividerSize(4);
-        splitPane.setResizeWeight(1.0); // allow left panel to take remaining space
+        splitPane.setResizeWeight(0.7); // allocate more space to patient cards
 
         JPanel patientsSection = new JPanel(new BorderLayout());
         patientsSection.setBackground(Color.WHITE);
@@ -103,9 +103,11 @@ public class DashboardView {
         alertsSection.add(alertsScrollPane, BorderLayout.CENTER);
 
         alertsSection.setPreferredSize(new Dimension(300, 0));
+        alertsSection.setMaximumSize(new Dimension(400, Integer.MAX_VALUE));
 
         splitPane.setLeftComponent(patientsSection);
         splitPane.setRightComponent(alertsSection);
+        splitPane.setDividerLocation(0.7);
 
         mainPanel.add(headerPanel, "dock north");
         mainPanel.add(splitPane, "grow");
