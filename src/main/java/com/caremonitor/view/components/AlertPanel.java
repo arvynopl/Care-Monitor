@@ -64,7 +64,7 @@ public class AlertPanel extends JPanel {
     private JPanel createAlertPanel(AlertItem alert) {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
-        panel.setBackground(Color.WHITE);
+        panel.setBackground(UIStyles.LIGHT_GRAY_229);
         panel.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createMatteBorder(0, 3, 0, 0, getColorForType(alert.type)),
             BorderFactory.createCompoundBorder(
@@ -75,7 +75,7 @@ public class AlertPanel extends JPanel {
         panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 80));
         
         JPanel headerPanel = new JPanel(new BorderLayout());
-        headerPanel.setBackground(Color.WHITE);
+        headerPanel.setBackground(UIStyles.LIGHT_GRAY_229);
         
         String patientName = "Unknown";
         if (alert.message.contains(":")) {
@@ -96,15 +96,26 @@ public class AlertPanel extends JPanel {
             alertMessage = alert.message.substring(alert.message.indexOf(":") + 1).trim();
         }
         
-        JLabel messageLabel = new JLabel(alertMessage);
-        messageLabel.setFont(UIStyles.ARIAL_PLAIN_12);
+        final int MAX_PREVIEW_LENGTH = 100;
+        String previewMessage = alertMessage;
+        if (alertMessage.length() > MAX_PREVIEW_LENGTH) {
+            previewMessage = alertMessage.substring(0, MAX_PREVIEW_LENGTH) + "...";
+        }
+
+        JTextArea messageArea = new JTextArea(previewMessage);
+        messageArea.setFont(UIStyles.ARIAL_PLAIN_12);
+        messageArea.setLineWrap(true);
+        messageArea.setWrapStyleWord(true);
+        messageArea.setEditable(false);
+        messageArea.setOpaque(false);
+        messageArea.setToolTipText(alertMessage);
         
         JLabel timeLabel = new JLabel(getTimeAgo(alert.timestamp));
         timeLabel.setFont(UIStyles.ARIAL_ITALIC_11);
         timeLabel.setForeground(Color.GRAY);
         
         panel.add(headerPanel, BorderLayout.NORTH);
-        panel.add(messageLabel, BorderLayout.CENTER);
+        panel.add(messageArea, BorderLayout.CENTER);
         panel.add(timeLabel, BorderLayout.SOUTH);
         
         return panel;
