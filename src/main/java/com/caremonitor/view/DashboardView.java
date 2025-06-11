@@ -199,15 +199,15 @@ public class DashboardView {
 
                 String message;
                 if ("caregiver".equalsIgnoreCase(currentUser.getRole())) {
-                    message = "Kondisi Abnormal terdeteksi pada Pasien " + patient.getName() + ". Silakan datangi Pasien";
+                    message = "Abnormal condition detected for patient " + patient.getName() + ". Please visit the patient.";
                 } else if ("family".equalsIgnoreCase(currentUser.getRole())) {
-                    message = "Kondisi Abnormal terdeteksi pada Pasien " + patient.getName() + ". Silakan hubungi Caregiver Keluarga Anda";
+                    message = "Abnormal condition detected for patient " + patient.getName() + ". Please contact your family caregiver.";
                 } else {
-                    message = "Kondisi Abnormal terdeteksi pada Pasien " + patient.getName() + ". Silakan periksa kondisi pasien";
+                    message = "Abnormal condition detected for patient " + patient.getName() + ". Please check the patient's condition.";
                 }
                 
                 String notificationKey = currentUser.getRole() + "_" + currentUser.getId() + "_" + patient.getId();
-                notificationManager.showNotification("Peringatan Kondisi Kritis", message, notificationKey);
+                notificationManager.showNotification("Critical Condition Alert", message, notificationKey);
                 
                 break;
             }

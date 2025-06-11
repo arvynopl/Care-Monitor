@@ -78,20 +78,20 @@ public class RegisterView extends JFrame {
     private void initializeComponents() {
         setTitle("Care Monitor - Sign Up");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setExtendedState(JFrame.MAXIMIZED_BOTH); // Membuat window fullscreen
+        setExtendedState(JFrame.MAXIMIZED_BOTH); // Make window fullscreen
 
-        nameField = new StyledTextField("Masukkan nama lengkap Anda"); // Pass placeholder to constructor
-        emailField = new StyledTextField("contoh@email.com");
-        // PERBAIKAN DI SINI: Gunakan StyledTextField.StyledPasswordField untuk passwordField
-        passwordField = new StyledTextField.StyledPasswordField("Minimal 8 karakter");
-        contactField = new StyledTextField("Nomor telepon atau kontak lainnya");
-        roleComboBox = new JComboBox<>(new String[]{"-- Pilih Peran --", "Caregiver", "Family"}); // Mengubah teks
-        continueButton = new PrimaryButton("Lanjut Pendaftaran");
+        nameField = new StyledTextField("Enter your full name");
+        emailField = new StyledTextField("example@email.com");
+        // Use StyledTextField.StyledPasswordField for passwordField
+        passwordField = new StyledTextField.StyledPasswordField("Minimum 8 characters");
+        contactField = new StyledTextField("Phone number or other contact");
+        roleComboBox = new JComboBox<>(new String[]{"-- Select Role --", "Caregiver", "Family"});
+        continueButton = new PrimaryButton("Continue Registration");
 
-        specializationField = new StyledTextField("Contoh: Dokter Umum, Perawat");
-        relationshipField = new StyledTextField("Contoh: Orang Tua, Pasangan, Anak");
-        registerButton = new PrimaryButton("Daftar Sekarang"); // Mengubah teks
-        backButton = new JButton("Kembali"); // Mengubah teks
+        specializationField = new StyledTextField("Example: General Practitioner, Nurse");
+        relationshipField = new StyledTextField("Example: Parent, Spouse, Child");
+        registerButton = new PrimaryButton("Register Now");
+        backButton = new JButton("Back");
 
         // Store default borders for validation feedback
         defaultFieldBorder = nameField.getBorder();
@@ -142,14 +142,14 @@ public class RegisterView extends JFrame {
         mainPanel.setBackground(Color.WHITE); // Background panel utama
 
         // Left Panel (Logo & Title)
-        JPanel leftPanel = new JPanel(new GridBagLayout()); // Menggunakan GridBagLayout untuk pemusatan
+        JPanel leftPanel = new JPanel(new GridBagLayout()); // Use GridBagLayout for centering
         leftPanel.setBackground(UIStyles.DARK_BLUE);
         leftPanel.setPreferredSize(new Dimension(500, 0)); // Lebar tetap 500
 
         JPanel logoContentPanel = new JPanel(); // Panel untuk menampung logo dan subtitle
         logoContentPanel.setBackground(UIStyles.DARK_BLUE);
         logoContentPanel.setLayout(new BoxLayout(logoContentPanel, BoxLayout.Y_AXIS));
-        logoContentPanel.setBorder(new EmptyBorder(50, 50, 50, 50)); // Padding internal
+        logoContentPanel.setBorder(new EmptyBorder(50, 50, 50, 50)); // Internal padding
 
         JLabel logoLabel = new JLabel("Care Monitor");
         logoLabel.setFont(UIStyles.ARIAL_BOLD_36); // Ukuran font lebih besar
@@ -192,31 +192,31 @@ public class RegisterView extends JFrame {
     }
 
     private void createStep1Panel() {
-        step1Panel = new JPanel(new GridBagLayout()); // Tetap GridBagLayout untuk centering
+        step1Panel = new JPanel(new GridBagLayout()); // Keep GridBagLayout for centering
         step1Panel.setBackground(Color.WHITE);
-        step1Panel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50)); // Padding di sekitar form
+        step1Panel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50)); // Padding around the form
 
-        JPanel formContentPanel = new JPanel(); // Panel baru untuk menampung semua input form
+        JPanel formContentPanel = new JPanel(); // Panel to hold all form inputs
         formContentPanel.setLayout(new BoxLayout(formContentPanel, BoxLayout.Y_AXIS));
         formContentPanel.setBackground(Color.WHITE);
-        formContentPanel.setMaximumSize(new Dimension(FIELD_SIZE.width + 100, Integer.MAX_VALUE)); // Lebar maksimum untuk form
+        formContentPanel.setMaximumSize(new Dimension(FIELD_SIZE.width + 100, Integer.MAX_VALUE)); // Max width for form
 
-        JLabel titleLabel = new JLabel("Daftar Akun Baru"); // Mengubah teks
+        JLabel titleLabel = new JLabel("Register New Account");
         titleLabel.setFont(UIStyles.ARIAL_BOLD_32); // Ukuran font lebih besar
         titleLabel.setForeground(UIStyles.DARK_BLUE);
         titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT); // Align left
 
         formContentPanel.add(titleLabel);
-        formContentPanel.add(Box.createRigidArea(new Dimension(0, 30))); // Jarak dari judul
+        formContentPanel.add(Box.createRigidArea(new Dimension(0, 30))); // Spacing after title
 
         // Helper method for adding labeled fields
-        addFormField(formContentPanel, "Nama Lengkap", nameField);
+        addFormField(formContentPanel, "Full Name", nameField);
         addFormField(formContentPanel, "Email", emailField);
         addFormField(formContentPanel, "Password", passwordField); // PasswordField sekarang juga Placeholder
-        addFormField(formContentPanel, "Kontak", contactField);
+        addFormField(formContentPanel, "Contact", contactField);
 
         // Role ComboBox
-        JLabel roleLabel = new JLabel("Pilih Peran Anda"); // Mengubah teks
+        JLabel roleLabel = new JLabel("Select Your Role");
         roleLabel.setFont(UIStyles.ARIAL_PLAIN_14);
         roleLabel.setForeground(UIStyles.TEXT_MEDIUM);
         roleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -238,12 +238,12 @@ public class RegisterView extends JFrame {
         loginPanel.setBackground(Color.WHITE);
         loginPanel.setAlignmentX(Component.LEFT_ALIGNMENT); // Penting untuk BoxLayout Y_AXIS
         loginPanel.setMaximumSize(new Dimension(FIELD_SIZE.width, 30)); // Batasi lebar
-        JLabel alreadyHaveLabel = new JLabel("Sudah punya akun? "); // Mengubah teks
+        JLabel alreadyHaveLabel = new JLabel("Already have an account? ");
         alreadyHaveLabel.setFont(UIStyles.ARIAL_PLAIN_14);
         alreadyHaveLabel.setForeground(UIStyles.TEXT_LIGHT);
         loginPanel.add(alreadyHaveLabel);
 
-        JButton logInLink = new JButton("Masuk"); // Mengubah teks
+        JButton logInLink = new JButton("Log In");
         logInLink.setBorderPainted(false);
         logInLink.setContentAreaFilled(false);
         logInLink.setForeground(UIStyles.LIGHT_BLUE);
@@ -287,7 +287,7 @@ public class RegisterView extends JFrame {
         headerPanel.setBackground(Color.WHITE);
         headerPanel.add(backButton, BorderLayout.WEST);
 
-        JLabel step2Title = new JLabel("Lengkapi Pendaftaran", SwingConstants.CENTER); // Mengubah teks
+        JLabel step2Title = new JLabel("Complete Registration", SwingConstants.CENTER);
         step2Title.setFont(UIStyles.ARIAL_BOLD_28); // Ukuran font lebih besar
         step2Title.setForeground(UIStyles.DARK_BLUE);
         headerPanel.add(step2Title, BorderLayout.CENTER);
@@ -312,7 +312,7 @@ public class RegisterView extends JFrame {
         // Specialization Field
         JPanel specPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         specPanel.setBackground(Color.WHITE);
-        JLabel specLabel = new JLabel("Spesialisasi:");
+        JLabel specLabel = new JLabel("Specialization:");
         specLabel.setFont(UIStyles.ARIAL_PLAIN_14);
         specLabel.setForeground(UIStyles.TEXT_MEDIUM);
         specPanel.add(specLabel);
@@ -324,7 +324,7 @@ public class RegisterView extends JFrame {
         contentPanel.add(specPanel, gbcContent);
 
         // Patients Label
-        JLabel patientsLabel = new JLabel("Pasien yang Ditangani:"); // Mengubah teks
+        JLabel patientsLabel = new JLabel("Patients Under Care:");
         patientsLabel.setFont(UIStyles.ARIAL_BOLD_16);
         gbcContent.gridy = 1;
         gbcContent.insets = new Insets(20, 0, 10, 0);
@@ -342,7 +342,7 @@ public class RegisterView extends JFrame {
         List<Patient> unassignedPatients = patientController.getUnassignedPatients();
 
         if (unassignedPatients.isEmpty()) {
-            caregiverPatientPanel.add(new JLabel("Tidak ada pasien yang belum ditangani.")); // Mengubah teks
+            caregiverPatientPanel.add(new JLabel("No unassigned patients."));
         } else {
             for (Patient patient : unassignedPatients) {
                 JPanel patientRowPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
@@ -354,12 +354,12 @@ public class RegisterView extends JFrame {
 
                 StyledTextField codeField = new StyledTextField(); // Ini sudah benar
                 codeField.setEnabled(false);
-                codeField.setPlaceholderText("Kode Unik Pasien");
+                codeField.setPlaceholderText("Patient Unique Code");
                 codeField.setPreferredSize(CODE_FIELD_SIZE);
                 caregiverPatientCodes.put(checkbox, codeField);
 
                 patientRowPanel.add(checkbox);
-                JLabel codeLabel = new JLabel("Kode:");
+                JLabel codeLabel = new JLabel("Code:");
                 codeLabel.setFont(UIStyles.ARIAL_PLAIN_14);
                 patientRowPanel.add(codeLabel);
                 patientRowPanel.add(codeField);
@@ -374,7 +374,7 @@ public class RegisterView extends JFrame {
         scrollPane.setPreferredSize(new Dimension(FIELD_SIZE.width + 100, 250)); // Lebar scrollPane sesuai form
         scrollPane.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createLineBorder(UIStyles.BORDER_GRAY),
-                "Pilih Pasien",
+                "Select Patients",
                 TitledBorder.LEFT, TitledBorder.TOP,
                 UIStyles.ARIAL_BOLD_14,
                 UIStyles.TEXT_MEDIUM)); // Border dengan judul lebih modern
@@ -423,7 +423,7 @@ public class RegisterView extends JFrame {
         // Relationship Field
         JPanel relationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         relationPanel.setBackground(Color.WHITE);
-        JLabel relationLabel = new JLabel("Hubungan dengan Pasien:"); // Mengubah teks
+        JLabel relationLabel = new JLabel("Relationship to Patient:");
         relationLabel.setFont(UIStyles.ARIAL_PLAIN_14);
         relationLabel.setForeground(UIStyles.TEXT_MEDIUM);
         relationPanel.add(relationLabel);
@@ -435,7 +435,7 @@ public class RegisterView extends JFrame {
         contentPanel.add(relationPanel, gbcContent);
 
         // Patients Label
-        JLabel patientsLabel = new JLabel("Pasien Terkait:");
+        JLabel patientsLabel = new JLabel("Related Patients:");
         patientsLabel.setFont(UIStyles.ARIAL_BOLD_16);
         gbcContent.gridy = 1;
         gbcContent.insets = new Insets(20, 0, 10, 0);
@@ -451,7 +451,7 @@ public class RegisterView extends JFrame {
         familyPatientCodes.clear();
 
         if (allPatients.isEmpty()) {
-            familyPatientPanel.add(new JLabel("Tidak ada pasien tersedia.")); // Mengubah teks
+            familyPatientPanel.add(new JLabel("No patients available."));
         } else {
             for (Patient patient : allPatients) {
                 JPanel patientRowPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
@@ -463,12 +463,12 @@ public class RegisterView extends JFrame {
 
                 StyledTextField codeField = new StyledTextField(); // Ini sudah benar
                 codeField.setEnabled(false);
-                codeField.setPlaceholderText("Kode Unik Pasien");
+                codeField.setPlaceholderText("Patient Unique Code");
                 codeField.setPreferredSize(CODE_FIELD_SIZE);
                 familyPatientCodes.put(checkbox, codeField);
 
                 patientRowPanel.add(checkbox);
-                JLabel codeLabel = new JLabel("Kode:");
+                JLabel codeLabel = new JLabel("Code:");
                 codeLabel.setFont(UIStyles.ARIAL_PLAIN_14);
                 patientRowPanel.add(codeLabel);
                 patientRowPanel.add(codeField);
@@ -483,7 +483,7 @@ public class RegisterView extends JFrame {
         scrollPane.setPreferredSize(new Dimension(FIELD_SIZE.width + 100, 250)); // Lebar scrollPane sesuai form
         scrollPane.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createLineBorder(UIStyles.BORDER_GRAY),
-                "Pilih Pasien",
+                "Select Patients",
                 TitledBorder.LEFT, TitledBorder.TOP,
                 UIStyles.ARIAL_BOLD_14,
                 UIStyles.TEXT_MEDIUM)); // Border dengan judul lebih modern
@@ -671,8 +671,8 @@ public class RegisterView extends JFrame {
 
                     if (authController.verifyPatientCode(code) != patientId) {
                         JOptionPane.showMessageDialog(this,
-                            "Kode pasien tidak valid untuk: " + checkboxText, // Mengubah teks
-                            "Kesalahan Pendaftaran", // Mengubah teks
+                            "Invalid patient code for: " + checkboxText,
+                            "Registration Error",
                             JOptionPane.ERROR_MESSAGE);
                         return;
                     }
@@ -699,8 +699,8 @@ public class RegisterView extends JFrame {
 
                     if (authController.verifyPatientCode(code) != patientId) {
                         JOptionPane.showMessageDialog(this,
-                            "Kode pasien tidak valid untuk: " + checkboxText, // Mengubah teks
-                            "Kesalahan Pendaftaran", // Mengubah teks
+                            "Invalid patient code for: " + checkboxText,
+                            "Registration Error",
                             JOptionPane.ERROR_MESSAGE);
                         return;
                     }
@@ -716,14 +716,14 @@ public class RegisterView extends JFrame {
 
         if (success) {
             JOptionPane.showMessageDialog(this,
-                "Pendaftaran berhasil! Silakan masuk.", // Mengubah teks
-                "Pendaftaran Berhasil", // Mengubah teks
+                "Registration successful! Please log in.",
+                "Registration Successful",
                 JOptionPane.INFORMATION_MESSAGE);
             openLoginView();
         } else {
             JOptionPane.showMessageDialog(this,
-                "Pendaftaran gagal. Mohon coba lagi.", // Mengubah teks
-                "Kesalahan Pendaftaran", // Mengubah teks
+                "Registration failed. Please try again.",
+                "Registration Error",
                 JOptionPane.ERROR_MESSAGE);
         }
     }
