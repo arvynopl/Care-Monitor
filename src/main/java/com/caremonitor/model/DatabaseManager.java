@@ -31,9 +31,19 @@ public class DatabaseManager {
     }
     
     private void loadEnvVariables() {
-        Map<String, String> env = readEnvFile();
-        URL = env.getOrDefault("DB_URL", "jdbc:postgresql://localhost:5432/caremonitor");
-        USER = env.getOrDefault("DB_USER", "postgres");
+        Map<String, String> env = new HashMap<>();
+
+        // Load from .env file if present
+        env.putAll(readEnvFile());
+
+        // Override with actual environment variables when available
+        env.putAll(System.getenv());
+
+        URL = env.getOrDefault(
+                "DB_URL",
+                "jdbc:h2:mem:testdb;MODE=PostgreSQL;DB_CLOSE_DELAY=-1"
+        );
+        USER = env.getOrDefault("DB_USER", "sa");
         PASSWORD = env.getOrDefault("DB_PASSWORD", "");
     }
     
