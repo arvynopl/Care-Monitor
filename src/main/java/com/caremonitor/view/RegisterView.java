@@ -6,6 +6,7 @@ import com.caremonitor.controller.PatientController;
 import com.caremonitor.model.Patient;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder; // Import LineBorder
 import javax.swing.border.TitledBorder;
@@ -53,6 +54,11 @@ public class RegisterView extends JFrame {
     private final Dimension BUTTON_SIZE = new Dimension(350, 45); // Ukuran tombol yang konsisten
     private final Dimension CODE_FIELD_SIZE = new Dimension(150, 30); // Ukuran field kode pasien
 
+    // Borders for validation feedback
+    private Border defaultFieldBorder;
+    private Border defaultComboBorder;
+    private Border errorBorder;
+
     public RegisterView() {
         authController = new AuthController(null);
         patientController = new PatientController();
@@ -84,6 +90,13 @@ public class RegisterView extends JFrame {
         relationshipField = new PlaceholderTextField("Contoh: Orang Tua, Pasangan, Anak");
         registerButton = new JButton("Daftar Sekarang"); // Mengubah teks
         backButton = new JButton("Kembali"); // Mengubah teks
+
+        // Store default borders for validation feedback
+        defaultFieldBorder = nameField.getBorder();
+        defaultComboBorder = roleComboBox.getBorder();
+        errorBorder = BorderFactory.createCompoundBorder(
+                new LineBorder(Color.RED, 2),
+                new EmptyBorder(10, 10, 10, 10));
 
         // Menerapkan ukuran konsisten
         nameField.setPreferredSize(FIELD_SIZE);
@@ -529,91 +542,108 @@ public class RegisterView extends JFrame {
     }
 
     private boolean validateStep1() {
-        if (nameField.getText().trim().isEmpty() ||
-            emailField.getText().trim().isEmpty() ||
-            new String(passwordField.getPassword()).trim().isEmpty() ||
-            contactField.getText().trim().isEmpty() ||
-            roleComboBox.getSelectedIndex() == 0) {
+        boolean valid = true;
 
-            JOptionPane.showMessageDialog(this,
-                "Mohon lengkapi semua kolom yang wajib diisi.", // Mengubah teks
-                "Kesalahan Validasi", // Mengubah teks
-                JOptionPane.ERROR_MESSAGE);
-            return false;
+        if (nameField.getText().trim().isEmpty()) {
+            nameField.setBorder(errorBorder);
+            valid = false;
+        } else {
+            nameField.setBorder(defaultFieldBorder);
         }
 
-        return true;
+        if (emailField.getText().trim().isEmpty()) {
+            emailField.setBorder(errorBorder);
+            valid = false;
+        } else {
+            emailField.setBorder(defaultFieldBorder);
+        }
+
+        if (new String(passwordField.getPassword()).trim().isEmpty()) {
+            passwordField.setBorder(errorBorder);
+            valid = false;
+        } else {
+            passwordField.setBorder(defaultFieldBorder);
+        }
+
+        if (contactField.getText().trim().isEmpty()) {
+            contactField.setBorder(errorBorder);
+            valid = false;
+        } else {
+            contactField.setBorder(defaultFieldBorder);
+        }
+
+        if (roleComboBox.getSelectedIndex() == 0) {
+            roleComboBox.setBorder(new LineBorder(Color.RED, 2));
+            valid = false;
+        } else {
+            roleComboBox.setBorder(defaultComboBorder);
+        }
+
+        return valid;
     }
 
     private boolean validateStep2() {
         String selectedRole = (String) roleComboBox.getSelectedItem();
+        boolean valid = true;
 
         if ("Caregiver".equals(selectedRole)) {
             if (specializationField.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this,
-                    "Mohon masukkan spesialisasi.", // Mengubah teks
-                    "Kesalahan Validasi", // Mengubah teks
-                    JOptionPane.ERROR_MESSAGE);
-                return false;
+                specializationField.setBorder(errorBorder);
+                valid = false;
+            } else {
+                specializationField.setBorder(defaultFieldBorder);
             }
 
             boolean hasSelectedPatient = false;
             for (JCheckBox checkbox : caregiverPatientCheckboxes) {
+                JTextField codeField = caregiverPatientCodes.get(checkbox);
                 if (checkbox.isSelected()) {
                     hasSelectedPatient = true;
-                    JTextField codeField = caregiverPatientCodes.get(checkbox);
                     if (codeField.getText().trim().isEmpty()) {
-                        JOptionPane.showMessageDialog(this,
-                            "Mohon masukkan kode pasien untuk pasien yang dipilih.", // Mengubah teks
-                            "Kesalahan Validasi", // Mengubah teks
-                            JOptionPane.ERROR_MESSAGE);
-                        return false;
+                        codeField.setBorder(errorBorder);
+                        valid = false;
+                    } else {
+                        codeField.setBorder(defaultFieldBorder);
                     }
+                } else {
+                    codeField.setBorder(defaultFieldBorder);
                 }
             }
 
             if (!hasSelectedPatient) {
-                JOptionPane.showMessageDialog(this,
-                    "Mohon pilih setidaknya satu pasien.", // Mengubah teks
-                    "Kesalahan Validasi", // Mengubah teks
-                    JOptionPane.ERROR_MESSAGE);
-                return false;
+                valid = false;
             }
 
         } else if ("Family".equals(selectedRole)) {
             if (relationshipField.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this,
-                    "Mohon masukkan hubungan Anda dengan pasien.", // Mengubah teks
-                    "Kesalahan Validasi", // Mengubah teks
-                    JOptionPane.ERROR_MESSAGE);
-                return false;
+                relationshipField.setBorder(errorBorder);
+                valid = false;
+            } else {
+                relationshipField.setBorder(defaultFieldBorder);
             }
 
             boolean hasSelectedPatient = false;
             for (JCheckBox checkbox : familyPatientCheckboxes) {
+                JTextField codeField = familyPatientCodes.get(checkbox);
                 if (checkbox.isSelected()) {
                     hasSelectedPatient = true;
-                    JTextField codeField = familyPatientCodes.get(checkbox);
                     if (codeField.getText().trim().isEmpty()) {
-                        JOptionPane.showMessageDialog(this,
-                            "Mohon masukkan kode pasien untuk pasien yang dipilih.", // Mengubah teks
-                            "Kesalahan Validasi", // Mengubah teks
-                            JOptionPane.ERROR_MESSAGE);
-                        return false;
+                        codeField.setBorder(errorBorder);
+                        valid = false;
+                    } else {
+                        codeField.setBorder(defaultFieldBorder);
                     }
+                } else {
+                    codeField.setBorder(defaultFieldBorder);
                 }
             }
 
             if (!hasSelectedPatient) {
-                JOptionPane.showMessageDialog(this,
-                    "Mohon pilih setidaknya satu pasien.", // Mengubah teks
-                    "Kesalahan Validasi", // Mengubah teks
-                    JOptionPane.ERROR_MESSAGE);
-                return false;
+                valid = false;
             }
         }
 
-        return true;
+        return valid;
     }
 
     private void performRegistration() {
