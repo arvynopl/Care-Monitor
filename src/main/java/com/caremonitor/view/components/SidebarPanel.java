@@ -3,6 +3,7 @@ package com.caremonitor.view.components;
 
 import javax.swing.*;
 import java.awt.*;
+import com.caremonitor.view.theme.UIStyles;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -14,9 +15,6 @@ public class SidebarPanel extends JPanel {
     private JLabel logoutLabel;
     private JLabel activeLabel;
     
-    private final Color DARK_BLUE = new Color(0, 32, 96);
-    private final Color LIGHT_BLUE = new Color(59, 130, 246);
-    private final Color HOVER_COLOR = new Color(30, 58, 138);
     
     private String userRole; 
     
@@ -31,7 +29,7 @@ public class SidebarPanel extends JPanel {
     }
     
     private void initializeComponents() {
-        setBackground(DARK_BLUE);
+        setBackground(UIStyles.DARK_BLUE);
         setPreferredSize(new Dimension(250, 0));
         
         
@@ -44,7 +42,7 @@ public class SidebarPanel extends JPanel {
         }
         
         logoutLabel = createMenuLabel("Logout", false);
-        logoutLabel.setForeground(new Color(239, 68, 68)); 
+        logoutLabel.setForeground(UIStyles.DANGER_RED);
         
         activeLabel = healthDashboardLabel;
     }
@@ -53,7 +51,7 @@ public class SidebarPanel extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
        
         JLabel titleLabel = new JLabel("Care Monitor");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        titleLabel.setFont(UIStyles.ARIAL_BOLD_20);
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         titleLabel.setBorder(BorderFactory.createEmptyBorder(30, 20, 30, 20));
@@ -80,8 +78,8 @@ public class SidebarPanel extends JPanel {
     
     private JLabel createMenuLabel(String text, boolean isActive) {
         JLabel label = new JLabel(text);
-        label.setFont(new Font("Arial", Font.PLAIN, 16));
-        label.setForeground(isActive ? LIGHT_BLUE : Color.WHITE);
+        label.setFont(UIStyles.ARIAL_PLAIN_16);
+        label.setForeground(isActive ? UIStyles.LIGHT_BLUE : Color.WHITE);
         label.setBorder(BorderFactory.createEmptyBorder(15, 30, 15, 30));
         label.setCursor(new Cursor(Cursor.HAND_CURSOR));
         
@@ -90,7 +88,7 @@ public class SidebarPanel extends JPanel {
             public void mouseEntered(MouseEvent e) {
                 if (label != activeLabel) {
                     label.setOpaque(true);
-                    label.setBackground(HOVER_COLOR);
+                    label.setBackground(UIStyles.HOVER_BLUE);
                 }
             }
             
@@ -115,9 +113,9 @@ public class SidebarPanel extends JPanel {
         
         activeLabel = label;
         if (activeLabel != null) {
-            activeLabel.setForeground(LIGHT_BLUE);
+            activeLabel.setForeground(UIStyles.LIGHT_BLUE);
             activeLabel.setOpaque(true);
-            activeLabel.setBackground(HOVER_COLOR);
+            activeLabel.setBackground(UIStyles.HOVER_BLUE);
         }
     }
     

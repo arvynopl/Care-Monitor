@@ -10,6 +10,7 @@ import com.caremonitor.model.User;
 import javax.swing.*;
 import javax.swing.JTextField;
 import java.awt.*;
+import com.caremonitor.view.theme.UIStyles;
 // import java.awt.event.ActionEvent;
 // import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -32,7 +33,6 @@ public class CriticalParametersView {
     private PatientController patientController;
     private CriticalParameterController criticalParameterController;
     
-    private final Color DARK_BLUE = new Color(0, 32, 96);
     
     public CriticalParametersView(User user) {
         this.currentUser = user;
@@ -53,8 +53,8 @@ public class CriticalParametersView {
         headerPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 10, 20));
         
         JLabel titleLabel = new JLabel("Critical Parameters");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        titleLabel.setForeground(DARK_BLUE);
+        titleLabel.setFont(UIStyles.ARIAL_BOLD_24);
+        titleLabel.setForeground(UIStyles.DARK_BLUE);
         headerPanel.add(titleLabel, BorderLayout.WEST);
         
         JPanel formPanel = new JPanel(new GridBagLayout());
@@ -66,7 +66,7 @@ public class CriticalParametersView {
         gbc.insets = new Insets(10, 10, 10, 10);
         
         JLabel patientLabel = new JLabel("Patient:");
-        patientLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        patientLabel.setFont(UIStyles.ARIAL_BOLD_14);
         patientComboBox = new JComboBox<>();
         patientComboBox.setPreferredSize(new Dimension(300, 30));
         
@@ -85,24 +85,24 @@ public class CriticalParametersView {
         
         gbc.gridx = 0;
         JLabel parameterLabel = new JLabel("Parameter");
-        parameterLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        parameterLabel.setFont(UIStyles.ARIAL_BOLD_14);
         formPanel.add(parameterLabel, gbc);
         
         gbc.gridx = 1;
         JLabel minLabel = new JLabel("Minimum");
-        minLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        minLabel.setFont(UIStyles.ARIAL_BOLD_14);
         minLabel.setHorizontalAlignment(SwingConstants.CENTER);
         formPanel.add(minLabel, gbc);
         
         gbc.gridx = 2;
         JLabel maxLabel = new JLabel("Maximum");
-        maxLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        maxLabel.setFont(UIStyles.ARIAL_BOLD_14);
         maxLabel.setHorizontalAlignment(SwingConstants.CENTER);
         formPanel.add(maxLabel, gbc);
         
         gbc.gridx = 3;
         JLabel unitLabel = new JLabel("Unit");
-        unitLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        unitLabel.setFont(UIStyles.ARIAL_BOLD_14);
         unitLabel.setHorizontalAlignment(SwingConstants.CENTER);
         formPanel.add(unitLabel, gbc);
         
@@ -164,11 +164,11 @@ public class CriticalParametersView {
         formPanel.add(celsiusLabel, gbc);
         
         saveButton = new JButton("Save");
-        saveButton.setBackground(DARK_BLUE);  
-        saveButton.setForeground(Color.WHITE); 
+        saveButton.setBackground(UIStyles.DARK_BLUE);
+        saveButton.setForeground(Color.WHITE);
         saveButton.setFocusPainted(false);
         saveButton.setPreferredSize(new Dimension(120, 40));
-        saveButton.setFont(new Font("Arial", Font.BOLD, 14));
+        saveButton.setFont(UIStyles.ARIAL_BOLD_14);
         
         gbc.gridx = 1;
         gbc.gridy = 5;

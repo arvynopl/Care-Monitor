@@ -23,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
+import com.caremonitor.view.theme.UIStyles;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
@@ -48,9 +49,9 @@ public class HealthHistoryView {
     private JButton downloadPdfButton;
     private ChartPanel chartPanel;
     
-    private final Color LIGHT_BLUE = new Color(91, 192, 222);
-    private final Color DARK_BLUE = new Color(0, 123, 255);
-    private final Color RED = new Color(220, 53, 69);
+    private final Color LIGHT_BLUE = UIStyles.CHART_LIGHT_BLUE;
+    private final Color DARK_BLUE = UIStyles.CHART_DARK_BLUE;
+    private final Color RED = UIStyles.SOFT_RED;
     // private final Color GREEN = new Color(40, 167, 69);
     
     private PatientController patientController;
@@ -75,7 +76,7 @@ public class HealthHistoryView {
 
         JPanel headerPanel = new JPanel(new BorderLayout());
         JLabel titleLabel = new JLabel("Health History", SwingConstants.CENTER);
-        titleLabel.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 24));
+        titleLabel.setFont(UIStyles.ARIAL_BOLD_24);
         titleLabel.setForeground(DARK_BLUE);
         headerPanel.add(titleLabel, BorderLayout.CENTER);
 
@@ -213,7 +214,7 @@ public class HealthHistoryView {
         healthTable.setRowHeight(25);
 
         JTableHeader header = healthTable.getTableHeader();
-        header.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 12));
+        header.setFont(UIStyles.ARIAL_BOLD_12);
         header.setBackground(DARK_BLUE);
         header.setForeground(Color.WHITE);
         
@@ -225,7 +226,7 @@ public class HealthHistoryView {
                 c.setBackground(DARK_BLUE);
                 c.setForeground(Color.WHITE);
                 setHorizontalAlignment(SwingConstants.CENTER);
-                setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 12));
+                setFont(UIStyles.ARIAL_BOLD_12);
                 return c;
             }
         };

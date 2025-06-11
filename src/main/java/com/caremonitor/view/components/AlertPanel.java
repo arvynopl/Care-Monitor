@@ -6,6 +6,7 @@ import com.caremonitor.model.HealthData;
 
 import javax.swing.*;
 import java.awt.*;
+import com.caremonitor.view.theme.UIStyles;
 // import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -67,7 +68,7 @@ public class AlertPanel extends JPanel {
         panel.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createMatteBorder(0, 3, 0, 0, getColorForType(alert.type)),
             BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(229, 231, 235), 1),
+                BorderFactory.createLineBorder(UIStyles.LIGHT_GRAY_229, 1),
                 BorderFactory.createEmptyBorder(10, 10, 10, 10)
             )
         ));
@@ -82,7 +83,7 @@ public class AlertPanel extends JPanel {
         }
         
         JLabel nameLabel = new JLabel(patientName);
-        nameLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        nameLabel.setFont(UIStyles.ARIAL_BOLD_14);
         
         JLabel iconLabel = new JLabel("●");
         iconLabel.setForeground(getColorForType(alert.type));
@@ -96,10 +97,10 @@ public class AlertPanel extends JPanel {
         }
         
         JLabel messageLabel = new JLabel(alertMessage);
-        messageLabel.setFont(new Font("Arial", Font.PLAIN, 12));
+        messageLabel.setFont(UIStyles.ARIAL_PLAIN_12);
         
         JLabel timeLabel = new JLabel(getTimeAgo(alert.timestamp));
-        timeLabel.setFont(new Font("Arial", Font.ITALIC, 11));
+        timeLabel.setFont(UIStyles.ARIAL_ITALIC_11);
         timeLabel.setForeground(Color.GRAY);
         
         panel.add(headerPanel, BorderLayout.NORTH);
@@ -112,11 +113,11 @@ public class AlertPanel extends JPanel {
     private Color getColorForType(AlertType type) {
         switch (type) {
             case INFO:
-                return new Color(59, 130, 246); 
+                return UIStyles.LIGHT_BLUE;
             case WARNING:
-                return new Color(245, 158, 11); 
+                return UIStyles.WARNING_ORANGE;
             case ERROR:
-                return new Color(239, 68, 68); 
+                return UIStyles.DANGER_RED;
             default:
                 return Color.GRAY;
         }

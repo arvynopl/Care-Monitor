@@ -3,6 +3,7 @@ package com.caremonitor.util;
 
 import javax.swing.*;
 import java.awt.*;
+import com.caremonitor.view.theme.UIStyles;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -47,7 +48,7 @@ public class NotificationManager {
                 iconLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20));
                 
                 JLabel messageLabel = new JLabel("<html><div style='width: 300px;'>" + message + "</div></html>");
-                messageLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+                messageLabel.setFont(UIStyles.ARIAL_PLAIN_14);
                 
                 JPanel contentPanel = new JPanel(new BorderLayout());
                 contentPanel.setBackground(Color.WHITE);
