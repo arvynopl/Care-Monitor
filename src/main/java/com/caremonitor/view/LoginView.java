@@ -67,11 +67,12 @@ public class LoginView extends JFrame {
     }
 
     private void setupLayout() {
-        JPanel mainPanel = new JPanel(new MigLayout("fill", "[30%][grow]", "fill"));
+        JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(Color.WHITE);
 
         JPanel leftPanel = new JPanel(new MigLayout("center, flowy", "[grow]", "push[]10[]push"));
         leftPanel.setBackground(UIStyles.DARK_BLUE);
+        leftPanel.setPreferredSize(new Dimension(UIStyles.AUTH_LEFT_PANEL_WIDTH, 0));
         
         JPanel logoPanel = new JPanel();
         logoPanel.setBackground(UIStyles.DARK_BLUE);
@@ -156,8 +157,8 @@ public class LoginView extends JFrame {
         
         rightPanel.add(formPanel, "align center");
         
-        mainPanel.add(leftPanel, "growy");
-        mainPanel.add(rightPanel, "grow");
+        mainPanel.add(leftPanel, BorderLayout.WEST);
+        mainPanel.add(rightPanel, BorderLayout.CENTER);
         
         setContentPane(mainPanel);
     }
