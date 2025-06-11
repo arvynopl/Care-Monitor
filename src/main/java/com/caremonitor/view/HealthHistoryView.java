@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import com.caremonitor.util.DialogUtil;
+import com.caremonitor.util.UIStyles;
 import java.text.SimpleDateFormat;
 
 public class HealthHistoryView {
@@ -165,6 +166,10 @@ public class HealthHistoryView {
             true,
             false
         );
+        chart.getTitle().setFont(UIStyles.CHART_TITLE_FONT);
+        if (chart.getLegend() != null) {
+            chart.getLegend().setItemFont(UIStyles.CHART_AXIS_FONT);
+        }
 
         XYPlot plot = chart.getXYPlot();
         plot.setBackgroundPaint(Color.WHITE);
@@ -173,9 +178,13 @@ public class HealthHistoryView {
         
         DateAxis dateAxis = (DateAxis) plot.getDomainAxis();
         dateAxis.setDateFormatOverride(new SimpleDateFormat("dd/MM"));
-        
+        dateAxis.setLabelFont(UIStyles.CHART_AXIS_FONT);
+        dateAxis.setTickLabelFont(UIStyles.CHART_AXIS_FONT);
+
         NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
         rangeAxis.setAutoRangeIncludesZero(false);
+        rangeAxis.setLabelFont(UIStyles.CHART_AXIS_FONT);
+        rangeAxis.setTickLabelFont(UIStyles.CHART_AXIS_FONT);
 
         XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
         renderer.setSeriesPaint(0, RED);
@@ -213,7 +222,7 @@ public class HealthHistoryView {
         healthTable.setRowHeight(25);
 
         JTableHeader header = healthTable.getTableHeader();
-        header.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 12));
+        header.setFont(UIStyles.TABLE_HEADER_FONT);
         header.setBackground(DARK_BLUE);
         header.setForeground(Color.WHITE);
         
@@ -225,7 +234,7 @@ public class HealthHistoryView {
                 c.setBackground(DARK_BLUE);
                 c.setForeground(Color.WHITE);
                 setHorizontalAlignment(SwingConstants.CENTER);
-                setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 12));
+                setFont(UIStyles.TABLE_HEADER_FONT);
                 return c;
             }
         };
