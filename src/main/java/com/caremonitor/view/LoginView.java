@@ -19,6 +19,9 @@ public class LoginView extends JFrame {
     private StyledTextField.StyledPasswordField passwordField;
     private PrimaryButton loginButton;
     private AuthController authController;
+
+    private static final Dimension FIELD_SIZE = new Dimension(350, 40);
+    private static final Dimension BUTTON_SIZE = new Dimension(350, 45);
     
 
     public LoginView() {
@@ -37,6 +40,13 @@ public class LoginView extends JFrame {
         emailField = new StyledTextField();
         passwordField = new StyledTextField.StyledPasswordField();
         loginButton = new PrimaryButton("Log In");
+
+        emailField.setPreferredSize(FIELD_SIZE);
+        emailField.setMaximumSize(FIELD_SIZE);
+        passwordField.setPreferredSize(FIELD_SIZE);
+        passwordField.setMaximumSize(FIELD_SIZE);
+        loginButton.setPreferredSize(BUTTON_SIZE);
+        loginButton.setMaximumSize(BUTTON_SIZE);
         
         emailField.setFont(UIStyles.ARIAL_PLAIN_14);
         emailField.setBorder(BorderFactory.createCompoundBorder(
@@ -96,12 +106,13 @@ public class LoginView extends JFrame {
         
         leftPanel.add(logoPanel);
         
-        JPanel rightPanel = new JPanel(new MigLayout("fill, insets 0", "[grow,fill]", "[grow]"));
+        JPanel rightPanel = new JPanel(new GridBagLayout());
         rightPanel.setBackground(Color.WHITE);
         
         JPanel formPanel = new JPanel(new MigLayout("wrap 1,fillx", "[grow,fill]", ""));
         formPanel.setBackground(Color.WHITE);
         formPanel.setBorder(new EmptyBorder(50, 50, 50, 50));
+        formPanel.setMaximumSize(new Dimension(400, Integer.MAX_VALUE));
         
         JLabel titleLabel = new JLabel("Log In");
         titleLabel.setFont(UIStyles.ARIAL_BOLD_32);
@@ -154,7 +165,11 @@ public class LoginView extends JFrame {
         formPanel.add(loginButton, "gaptop 30, growx");
         formPanel.add(registerPanel, "gaptop 20, align left");
         
-        rightPanel.add(formPanel, "align center");
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.CENTER;
+        rightPanel.add(formPanel, gbc);
         
         mainPanel.add(leftPanel, "growy");
         mainPanel.add(rightPanel, "grow");
