@@ -170,7 +170,7 @@ public class RegisterView extends JFrame {
         leftPanel.add(logoContentPanel); // Tambahkan logoContentPanel ke leftPanel yang ber-GridBagLayout
 
         // Right Panel (Forms)
-        JPanel rightPanel = new JPanel(new BorderLayout()); // Gunakan BorderLayout untuk mainFormPanel
+        JPanel rightPanel = new JPanel(new GridBagLayout());
         rightPanel.setBackground(Color.WHITE);
 
         cardLayout = new CardLayout();
@@ -183,7 +183,12 @@ public class RegisterView extends JFrame {
         mainFormPanel.add(step1Panel, "step1");
         mainFormPanel.add(step2Panel, "step2");
 
-        rightPanel.add(mainFormPanel, BorderLayout.CENTER); // mainFormPanel akan mengambil seluruh ruang di rightPanel
+        mainFormPanel.setMaximumSize(new Dimension(400, Integer.MAX_VALUE));
+        GridBagConstraints gbcRight = new GridBagConstraints();
+        gbcRight.gridx = 0;
+        gbcRight.gridy = 0;
+        gbcRight.anchor = GridBagConstraints.CENTER;
+        rightPanel.add(mainFormPanel, gbcRight);
 
         mainPanel.add(leftPanel, BorderLayout.WEST);
         mainPanel.add(rightPanel, BorderLayout.CENTER);
@@ -199,7 +204,7 @@ public class RegisterView extends JFrame {
         JPanel formContentPanel = new JPanel(); // Panel to hold all form inputs
         formContentPanel.setLayout(new BoxLayout(formContentPanel, BoxLayout.Y_AXIS));
         formContentPanel.setBackground(Color.WHITE);
-        formContentPanel.setMaximumSize(new Dimension(FIELD_SIZE.width + 100, Integer.MAX_VALUE)); // Max width for form
+        formContentPanel.setMaximumSize(new Dimension(400, Integer.MAX_VALUE)); // Max width for form
 
         JLabel titleLabel = new JLabel("Register New Account");
         titleLabel.setFont(UIStyles.ARIAL_BOLD_32); // Ukuran font lebih besar
@@ -281,7 +286,7 @@ public class RegisterView extends JFrame {
     private void createStep2Panel() {
         step2Panel = new JPanel(new BorderLayout());
         step2Panel.setBackground(Color.WHITE);
-        step2Panel.setBorder(BorderFactory.createEmptyBorder(30, 50, 30, 50));
+        step2Panel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
 
         JPanel headerPanel = new JPanel(new BorderLayout());
         headerPanel.setBackground(Color.WHITE);
@@ -371,7 +376,7 @@ public class RegisterView extends JFrame {
         }
 
         JScrollPane scrollPane = new JScrollPane(caregiverPatientPanel);
-        scrollPane.setPreferredSize(new Dimension(FIELD_SIZE.width + 100, 250)); // Lebar scrollPane sesuai form
+        scrollPane.setPreferredSize(new Dimension(400, 250)); // Limit width
         scrollPane.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createLineBorder(UIStyles.BORDER_GRAY),
                 "Select Patients",
@@ -480,7 +485,7 @@ public class RegisterView extends JFrame {
         }
 
         JScrollPane scrollPane = new JScrollPane(familyPatientPanel);
-        scrollPane.setPreferredSize(new Dimension(FIELD_SIZE.width + 100, 250)); // Lebar scrollPane sesuai form
+        scrollPane.setPreferredSize(new Dimension(400, 250)); // Limit width
         scrollPane.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createLineBorder(UIStyles.BORDER_GRAY),
                 "Select Patients",
