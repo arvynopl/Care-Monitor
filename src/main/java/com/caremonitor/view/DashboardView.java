@@ -136,7 +136,13 @@ public class DashboardView {
                     HealthData latestData = healthDataController.getLatestHealthData(patient.getId());
 
                     PatientCard patientCard = new PatientCard(patient, latestData);
-                    patientsPanel.add(patientCard);
+
+                    JPanel cardWrapper = new JPanel(new BorderLayout());
+                    cardWrapper.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+                    cardWrapper.setOpaque(false);
+                    cardWrapper.add(patientCard, BorderLayout.CENTER);
+
+                    patientsPanel.add(cardWrapper);
                     patientsPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
                     startSimulatorForPatient(patient);
