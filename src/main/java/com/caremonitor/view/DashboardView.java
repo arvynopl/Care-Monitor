@@ -58,9 +58,10 @@ public class DashboardView {
         titleLabel.setForeground(UIStyles.DARK_BLUE);
         headerPanel.add(titleLabel, BorderLayout.WEST);
 
-        JPanel contentPanel = new JPanel(new MigLayout("fill", "[grow][300!]", "[grow]"));
-        contentPanel.setBackground(Color.WHITE);
-        contentPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 20, 20));
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+        splitPane.setBorder(BorderFactory.createEmptyBorder(10, 20, 20, 20));
+        splitPane.setDividerSize(4);
+        splitPane.setResizeWeight(1.0); // allow left panel to take remaining space
 
         JPanel patientsSection = new JPanel(new BorderLayout());
         patientsSection.setBackground(Color.WHITE);
@@ -101,11 +102,13 @@ public class DashboardView {
         alertsSection.add(alertsLabel, BorderLayout.NORTH);
         alertsSection.add(alertsScrollPane, BorderLayout.CENTER);
 
-        contentPanel.add(patientsSection, "grow, push");
-        contentPanel.add(alertsSection, "w 300!, growy");
+        alertsSection.setPreferredSize(new Dimension(300, 0));
+
+        splitPane.setLeftComponent(patientsSection);
+        splitPane.setRightComponent(alertsSection);
 
         mainPanel.add(headerPanel, "dock north");
-        mainPanel.add(contentPanel, "grow");
+        mainPanel.add(splitPane, "grow");
     }
 
     private void loadPatients() {
