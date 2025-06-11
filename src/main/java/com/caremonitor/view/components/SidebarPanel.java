@@ -30,9 +30,9 @@ public class SidebarPanel extends JPanel {
     
     private void initializeComponents() {
         setBackground(UIStyles.DARK_BLUE);
-        setPreferredSize(new Dimension(250, 0));
-        
-        
+        setMinimumSize(new Dimension(150, 0));
+        setMaximumSize(new Dimension(300, Integer.MAX_VALUE));
+
         healthDashboardLabel = createMenuLabel("Health Dashboard", true);
         healthHistoryLabel = createMenuLabel("Health History", false);
         
@@ -77,11 +77,13 @@ public class SidebarPanel extends JPanel {
     }
     
     private JLabel createMenuLabel(String text, boolean isActive) {
-        JLabel label = new JLabel(text);
+        JLabel label = new JLabel("<html>" + text + "</html>");
         label.setFont(UIStyles.ARIAL_PLAIN_16);
         label.setForeground(isActive ? UIStyles.LIGHT_BLUE : Color.WHITE);
         label.setBorder(BorderFactory.createEmptyBorder(15, 30, 15, 30));
         label.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        label.setAlignmentX(Component.LEFT_ALIGNMENT);
+        label.setMaximumSize(new Dimension(Integer.MAX_VALUE, label.getPreferredSize().height));
         
         label.addMouseListener(new MouseAdapter() {
             @Override
