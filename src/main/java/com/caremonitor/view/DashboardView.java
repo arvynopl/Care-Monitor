@@ -14,6 +14,7 @@ import com.caremonitor.view.components.AlertPanel;
 import javax.swing.*;
 // import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import com.caremonitor.view.theme.UIStyles;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +31,6 @@ public class DashboardView {
     private List<IoTDeviceSimulator> simulators;
     private NotificationManager notificationManager;
 
-    private final Color DARK_BLUE = new Color(0, 32, 96);
 
     public DashboardView(User currentUser) {
         this.currentUser = currentUser;
@@ -53,8 +53,8 @@ public class DashboardView {
         headerPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 10, 20));
 
         JLabel titleLabel = new JLabel("Health Dashboard");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        titleLabel.setForeground(DARK_BLUE);
+        titleLabel.setFont(UIStyles.ARIAL_BOLD_24);
+        titleLabel.setForeground(UIStyles.DARK_BLUE);
         headerPanel.add(titleLabel, BorderLayout.WEST);
 
         JPanel contentPanel = new JPanel(new BorderLayout());
@@ -68,7 +68,7 @@ public class DashboardView {
         patientHeaderPanel.setBackground(Color.WHITE);
 
         JLabel patientsLabel = new JLabel("Patients");
-        patientsLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        patientsLabel.setFont(UIStyles.ARIAL_BOLD_18);
 
         patientHeaderPanel.add(patientsLabel, BorderLayout.WEST);
 
@@ -87,7 +87,7 @@ public class DashboardView {
         alertsSection.setBackground(Color.WHITE);
 
         JLabel alertsLabel = new JLabel("Recent Alerts");
-        alertsLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        alertsLabel.setFont(UIStyles.ARIAL_BOLD_18);
 
         alertsPanel = new JPanel();
         alertsPanel.setLayout(new BoxLayout(alertsPanel, BoxLayout.Y_AXIS));
@@ -127,7 +127,7 @@ public class DashboardView {
             if (patients.isEmpty()) {
                 JLabel noPatientLabel = new JLabel("No patients assigned");
                 noPatientLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-                noPatientLabel.setFont(new Font("Arial", Font.ITALIC, 14));
+                noPatientLabel.setFont(UIStyles.ARIAL_ITALIC_14);
                 noPatientLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
                 patientsPanel.add(noPatientLabel);
             } else {

@@ -3,6 +3,7 @@ package com.caremonitor;
 
 import com.caremonitor.model.DatabaseManager;
 import com.caremonitor.view.LoginView;
+import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
 
@@ -11,11 +12,7 @@ public class CareMonitorApp {
         System.setProperty("awt.useSystemAAFontSettings", "on");
         System.setProperty("swing.aatext", "true");
         
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        FlatLightLaf.setup();
 
         DatabaseManager.getInstance();
         

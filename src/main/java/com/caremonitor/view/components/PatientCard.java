@@ -6,6 +6,7 @@ import com.caremonitor.model.HealthData;
 
 import javax.swing.*;
 import java.awt.*;
+import com.caremonitor.view.theme.UIStyles;
 import java.text.SimpleDateFormat;
 
 public class PatientCard extends JPanel {
@@ -19,7 +20,7 @@ public class PatientCard extends JPanel {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
         setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(229, 231, 235), 1),
+            BorderFactory.createLineBorder(UIStyles.LIGHT_GRAY_229, 1),
             BorderFactory.createEmptyBorder(15, 15, 15, 15)
         ));
         setMaximumSize(new Dimension(Integer.MAX_VALUE, 150));
@@ -44,27 +45,27 @@ public class PatientCard extends JPanel {
         headerPanel.setBackground(Color.WHITE);
         
         JLabel nameLabel = new JLabel(patient.getName());
-        nameLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        nameLabel.setFont(UIStyles.ARIAL_BOLD_16);
         
         JLabel statusLabel = new JLabel();
         statusLabel.setOpaque(true);
         statusLabel.setBorder(BorderFactory.createEmptyBorder(2, 8, 2, 8));
-        statusLabel.setFont(new Font("Arial", Font.BOLD, 12));
+        statusLabel.setFont(UIStyles.ARIAL_BOLD_12);
         
         if (healthData != null) {
             boolean isCritical = isHealthDataCritical(healthData);
             if (isCritical) {
                 statusLabel.setText("Critical");
-                statusLabel.setBackground(new Color(239, 68, 68)); 
+                statusLabel.setBackground(UIStyles.DANGER_RED);
                 statusLabel.setForeground(Color.WHITE);
             } else {
                 statusLabel.setText("Normal");
-                statusLabel.setBackground(new Color(34, 197, 94)); 
+                statusLabel.setBackground(UIStyles.GREEN);
                 statusLabel.setForeground(Color.WHITE);
             }
         } else {
             statusLabel.setText("No Data");
-            statusLabel.setBackground(new Color(229, 231, 235)); 
+            statusLabel.setBackground(UIStyles.LIGHT_GRAY_229);
             statusLabel.setForeground(Color.BLACK);
         }
         
@@ -105,7 +106,7 @@ public class PatientCard extends JPanel {
         } else {
             lastUpdatedLabel.setText("No data available");
         }
-        lastUpdatedLabel.setFont(new Font("Arial", Font.ITALIC, 12));
+        lastUpdatedLabel.setFont(UIStyles.ARIAL_ITALIC_12);
         lastUpdatedLabel.setForeground(Color.GRAY);
         
         footerPanel.add(lastUpdatedLabel, BorderLayout.WEST);
@@ -121,7 +122,7 @@ public class PatientCard extends JPanel {
         panel.setBackground(Color.WHITE);
         
         JLabel labelText = new JLabel(label);
-        labelText.setFont(new Font("Arial", Font.PLAIN, 12));
+        labelText.setFont(UIStyles.ARIAL_PLAIN_12);
         labelText.setForeground(Color.GRAY);
         labelText.setAlignmentX(Component.LEFT_ALIGNMENT);
         
@@ -129,10 +130,10 @@ public class PatientCard extends JPanel {
         valuePanel.setBackground(Color.WHITE);
         
         JLabel valueText = new JLabel(value);
-        valueText.setFont(new Font("Arial", Font.BOLD, 20));
+        valueText.setFont(UIStyles.ARIAL_BOLD_20);
         
         JLabel unitText = new JLabel(" " + unit);
-        unitText.setFont(new Font("Arial", Font.PLAIN, 14));
+        unitText.setFont(UIStyles.ARIAL_PLAIN_14);
         unitText.setForeground(Color.GRAY);
         
         valuePanel.add(valueText);
