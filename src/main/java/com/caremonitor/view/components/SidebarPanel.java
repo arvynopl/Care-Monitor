@@ -2,6 +2,7 @@
 package com.caremonitor.view.components;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import com.caremonitor.view.theme.UIStyles;
 import java.awt.event.ActionListener;
@@ -72,15 +73,18 @@ public class SidebarPanel extends JPanel {
         }
         
         add(Box.createVerticalGlue());
-        add(logoutLabel);
         add(Box.createRigidArea(new Dimension(0, 30)));
     }
     
     private JLabel createMenuLabel(String text, boolean isActive) {
         JLabel label = new JLabel("<html>" + text + "</html>");
-        label.setFont(UIStyles.ARIAL_PLAIN_16);
+        label.setFont(isActive ? UIStyles.ARIAL_BOLD_16 : UIStyles.ARIAL_PLAIN_16);
         label.setForeground(isActive ? UIStyles.LIGHT_BLUE : Color.WHITE);
-        label.setBorder(BorderFactory.createEmptyBorder(15, 30, 15, 30));
+
+        Border side = BorderFactory.createMatteBorder(0, 5, 0, 0,
+                isActive ? UIStyles.LIGHT_BLUE : UIStyles.DARK_BLUE);
+        Border padding = BorderFactory.createEmptyBorder(15, 25, 15, 30);
+        label.setBorder(BorderFactory.createCompoundBorder(side, padding));
         label.setCursor(new Cursor(Cursor.HAND_CURSOR));
         label.setAlignmentX(Component.LEFT_ALIGNMENT);
         label.setMaximumSize(new Dimension(Integer.MAX_VALUE, label.getPreferredSize().height));
@@ -109,15 +113,23 @@ public class SidebarPanel extends JPanel {
 
         if (activeLabel != null) {
             activeLabel.setForeground(Color.WHITE);
+            activeLabel.setFont(UIStyles.ARIAL_PLAIN_16);
             activeLabel.setOpaque(false);
+            Border inactiveSide = BorderFactory.createMatteBorder(0, 5, 0, 0, UIStyles.DARK_BLUE);
+            Border padding = BorderFactory.createEmptyBorder(15, 25, 15, 30);
+            activeLabel.setBorder(BorderFactory.createCompoundBorder(inactiveSide, padding));
         }
-        
-        
+
+
         activeLabel = label;
         if (activeLabel != null) {
             activeLabel.setForeground(UIStyles.LIGHT_BLUE);
+            activeLabel.setFont(UIStyles.ARIAL_BOLD_16);
             activeLabel.setOpaque(true);
             activeLabel.setBackground(UIStyles.HOVER_BLUE);
+            Border activeSide = BorderFactory.createMatteBorder(0, 5, 0, 0, UIStyles.LIGHT_BLUE);
+            Border padding = BorderFactory.createEmptyBorder(15, 25, 15, 30);
+            activeLabel.setBorder(BorderFactory.createCompoundBorder(activeSide, padding));
         }
     }
     
