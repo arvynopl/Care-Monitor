@@ -10,6 +10,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder; // Import LineBorder
 import javax.swing.border.TitledBorder;
 
+import com.caremonitor.view.components.StyledTextField;
+import com.caremonitor.view.components.PrimaryButton;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,24 +22,24 @@ import java.util.List;
 import java.util.Map;
 
 public class RegisterView extends JFrame {
-    private JTextField nameField;
-    private JTextField emailField;
+    private StyledTextField nameField;
+    private StyledTextField emailField;
     private JPasswordField passwordField; // Tetap JPasswordField
-    private JTextField contactField;
+    private StyledTextField contactField;
     private JComboBox<String> roleComboBox;
-    private JButton continueButton;
+    private PrimaryButton continueButton;
 
-    private JTextField specializationField;
+    private StyledTextField specializationField;
     private JPanel caregiverPatientPanel;
     private List<JCheckBox> caregiverPatientCheckboxes;
     private Map<JCheckBox, JTextField> caregiverPatientCodes;
 
-    private JTextField relationshipField;
+    private StyledTextField relationshipField;
     private JPanel familyPatientPanel;
     private List<JCheckBox> familyPatientCheckboxes;
     private Map<JCheckBox, JTextField> familyPatientCodes;
 
-    private JButton registerButton;
+    private PrimaryButton registerButton;
     private JButton backButton;
 
     private AuthController authController;
@@ -79,11 +82,11 @@ public class RegisterView extends JFrame {
         passwordField = new PlaceholderPasswordField("Minimal 8 karakter");
         contactField = new PlaceholderTextField("Nomor telepon atau kontak lainnya");
         roleComboBox = new JComboBox<>(new String[]{"-- Pilih Peran --", "Caregiver", "Family"}); // Mengubah teks
-        continueButton = new JButton("Lanjut Pendaftaran");
+        continueButton = new PrimaryButton("Lanjut Pendaftaran");
 
         specializationField = new PlaceholderTextField("Contoh: Dokter Umum, Perawat");
         relationshipField = new PlaceholderTextField("Contoh: Orang Tua, Pasangan, Anak");
-        registerButton = new JButton("Daftar Sekarang"); // Mengubah teks
+        registerButton = new PrimaryButton("Daftar Sekarang"); // Mengubah teks
         backButton = new JButton("Kembali"); // Mengubah teks
 
         // Menerapkan ukuran konsisten
@@ -96,23 +99,8 @@ public class RegisterView extends JFrame {
         relationshipField.setPreferredSize(FIELD_SIZE);
 
         continueButton.setPreferredSize(BUTTON_SIZE);
-        continueButton.setBackground(DARK_BLUE);
-        continueButton.setFont(new Font("Arial", Font.BOLD, 14));
-        continueButton.setFocusPainted(false);
-        continueButton.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(DARK_BLUE, 1),
-                new EmptyBorder(10, 20, 10, 20))); // Padding internal
-        continueButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         registerButton.setPreferredSize(BUTTON_SIZE);
-        registerButton.setBackground(DARK_BLUE);
-        registerButton.setForeground(Color.WHITE);
-        registerButton.setFont(new Font("Arial", Font.BOLD, 14));
-        registerButton.setFocusPainted(false);
-        registerButton.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(DARK_BLUE, 1),
-                new EmptyBorder(10, 20, 10, 20))); // Padding internal
-        registerButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         backButton.setPreferredSize(new Dimension(120, 40)); // Ukuran sedikit lebih besar
         backButton.setBackground(new Color(220, 220, 220)); // Warna abu-abu yang lebih terang
@@ -704,7 +692,7 @@ public class RegisterView extends JFrame {
     }
 
     // Class untuk JTextField dengan placeholder
-    private static class PlaceholderTextField extends JTextField {
+    private static class PlaceholderTextField extends StyledTextField {
         private String placeholder;
 
         public PlaceholderTextField() {
@@ -713,10 +701,6 @@ public class RegisterView extends JFrame {
 
         public PlaceholderTextField(String placeholder) {
             this.placeholder = placeholder;
-            setBorder(BorderFactory.createCompoundBorder(
-                    new LineBorder(new Color(200, 200, 200), 1), // Border abu-abu tipis
-                    new EmptyBorder(10, 10, 10, 10))); // Padding internal
-            setFont(new Font("Arial", Font.PLAIN, 14));
             setOpaque(false); // Make it non-opaque so background can be drawn
         }
 

@@ -9,10 +9,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import com.caremonitor.view.components.StyledTextField;
+import com.caremonitor.view.components.PrimaryButton;
+
 public class LoginView extends JFrame {
-    private JTextField emailField;
+    private StyledTextField emailField;
     private JPasswordField passwordField;
-    private JButton loginButton;
+    private PrimaryButton loginButton;
     private AuthController authController;
     
     private final Color DARK_BLUE = new Color(0, 32, 96);
@@ -32,16 +35,11 @@ public class LoginView extends JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setMinimumSize(new Dimension(1000, 600));
         
-        emailField = new JTextField();
+        emailField = new StyledTextField();
         passwordField = new JPasswordField();
-        loginButton = new JButton("Log In");
-        
+        loginButton = new PrimaryButton("Log In");
+
         emailField.setPreferredSize(new Dimension(300, 45));
-        emailField.setFont(new Font("Arial", Font.PLAIN, 14));
-        emailField.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(FIELD_BORDER, 1),
-            BorderFactory.createEmptyBorder(10, 15, 10, 15)
-        ));
         
         passwordField.setPreferredSize(new Dimension(300, 45));
         passwordField.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -49,23 +47,8 @@ public class LoginView extends JFrame {
             BorderFactory.createLineBorder(FIELD_BORDER, 1),
             BorderFactory.createEmptyBorder(10, 15, 10, 15)
         ));
-        
+
         loginButton.setPreferredSize(new Dimension(300, 45));
-        loginButton.setFont(new Font("Arial", Font.BOLD, 16));
-        loginButton.setBackground(DARK_BLUE);
-        loginButton.setForeground(Color.WHITE);
-        loginButton.setFocusPainted(false);
-        loginButton.setBorderPainted(false);
-        loginButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        
-        loginButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                loginButton.setBackground(new Color(0, 45, 120));
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                loginButton.setBackground(DARK_BLUE);
-            }
-        });
     }
 
     private void setupLayout() {
