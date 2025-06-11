@@ -1,48 +1,63 @@
 # IF2050-2025-K4O-Care-Monitor
 
-## Prerequisites
+A desktop-based care monitoring system developed using Java Swing, PostgreSQL, and Gradle. This project enables efficient health data tracking and management for care-related applications.
 
-- Java 11 or higher
-- Gradle installed or use the provided wrapper `./gradlew`
+## 📦 Prerequisites
 
-## Database Setup
+- Java 11 or higher  
+- Gradle installed (or use the provided wrapper `./gradlew`)
 
-Create a `.env` file in the project root based on `.env.example` and configure the database connection:
+## ⚙️ Database Setup
+
+To connect the application to a local PostgreSQL database, create a `.env` file in the project root based on `.env.example`:
 
 ```env
 DB_URL=jdbc:postgresql://localhost:5432/caremonitor
 DB_USER=postgres
 DB_PASSWORD=your_postgres_password
-```
+````
 
-These variables are read by `DatabaseManager` when the application starts.
+These environment variables will be read by `DatabaseManager` at runtime.
 
-## Running the Application
+> **Note:** If no `.env` file or environment variables are provided during tests, the system defaults to an in-memory H2 database.
 
-Use Gradle to compile and launch the UI:
+## 🚀 Running the Application
+
+Use Gradle to build and run the application:
 
 ```bash
 ./gradlew run
 ```
 
-If you have Gradle installed locally you can also run:
+Or, if you have Gradle installed globally:
 
 ```bash
 gradle run
 ```
 
-## Running Tests
+## 🧪 Running Tests
 
-Execute the test suite with:
+The project uses **JUnit 5** and **Mockito** for unit testing.
+
+To execute tests:
 
 ```bash
 ./gradlew test
 ```
 
-or
+### 🔄 Test Database Behavior
 
-```bash
-gradle test
+By default, tests run using an in-memory H2 database with PostgreSQL compatibility mode:
+
+```text
+jdbc:h2:mem:testdb;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
 ```
 
-The tests use JUnit 5 and Mockito.
+You can override this configuration using environment variables:
+
+```bash
+DB_URL=jdbc:h2:mem:testdb;MODE=PostgreSQL;DB_CLOSE_DELAY=-1 \
+DB_USER=sa \
+DB_PASSWORD= \
+./gradlew test
+```
