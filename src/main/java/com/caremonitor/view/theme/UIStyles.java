@@ -47,4 +47,7 @@ public final class UIStyles {
     public static final Font ARIAL_ITALIC_11 = new Font("Arial", Font.ITALIC, 11);
     public static final Font ARIAL_ITALIC_12 = new Font("Arial", Font.ITALIC, 12);
     public static final Font ARIAL_ITALIC_14 = new Font("Arial", Font.ITALIC, 14);
+
+    // Common layout constants
+    public static final int AUTH_LEFT_PANEL_WIDTH = 500;
 }

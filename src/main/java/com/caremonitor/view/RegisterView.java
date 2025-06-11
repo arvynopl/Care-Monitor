@@ -144,7 +144,7 @@ public class RegisterView extends JFrame {
         // Left Panel (Logo & Title)
         JPanel leftPanel = new JPanel(new GridBagLayout()); // Use GridBagLayout for centering
         leftPanel.setBackground(UIStyles.DARK_BLUE);
-        leftPanel.setPreferredSize(new Dimension(500, 0)); // Lebar tetap 500
+        leftPanel.setPreferredSize(new Dimension(UIStyles.AUTH_LEFT_PANEL_WIDTH, 0));
 
         JPanel logoContentPanel = new JPanel(); // Panel untuk menampung logo dan subtitle
         logoContentPanel.setBackground(UIStyles.DARK_BLUE);
