@@ -86,16 +86,13 @@ public class RegisterView extends JFrame {
         registerButton = new JButton("Daftar Sekarang"); // Mengubah teks
         backButton = new JButton("Kembali"); // Mengubah teks
 
-        // Menerapkan ukuran konsisten
-        nameField.setPreferredSize(FIELD_SIZE);
-        emailField.setPreferredSize(FIELD_SIZE);
-        passwordField.setPreferredSize(FIELD_SIZE);
-        contactField.setPreferredSize(FIELD_SIZE);
-        roleComboBox.setPreferredSize(FIELD_SIZE);
-        specializationField.setPreferredSize(FIELD_SIZE);
-        relationshipField.setPreferredSize(FIELD_SIZE);
+        nameField.setColumns(20);
+        emailField.setColumns(20);
+        passwordField.setColumns(20);
+        contactField.setColumns(20);
+        specializationField.setColumns(20);
+        relationshipField.setColumns(20);
 
-        continueButton.setPreferredSize(BUTTON_SIZE);
         continueButton.setBackground(DARK_BLUE);
         continueButton.setFont(new Font("Arial", Font.BOLD, 14));
         continueButton.setFocusPainted(false);
@@ -104,7 +101,6 @@ public class RegisterView extends JFrame {
                 new EmptyBorder(10, 20, 10, 20))); // Padding internal
         continueButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        registerButton.setPreferredSize(BUTTON_SIZE);
         registerButton.setBackground(DARK_BLUE);
         registerButton.setForeground(Color.WHITE);
         registerButton.setFont(new Font("Arial", Font.BOLD, 14));
@@ -114,7 +110,6 @@ public class RegisterView extends JFrame {
                 new EmptyBorder(10, 20, 10, 20))); // Padding internal
         registerButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        backButton.setPreferredSize(new Dimension(120, 40)); // Ukuran sedikit lebih besar
         backButton.setBackground(new Color(220, 220, 220)); // Warna abu-abu yang lebih terang
         backButton.setForeground(Color.BLACK);
         backButton.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -124,13 +119,12 @@ public class RegisterView extends JFrame {
     }
 
     private void setupLayout() {
-        JPanel mainPanel = new JPanel(new BorderLayout());
+        JPanel mainPanel = new JPanel(new GridBagLayout());
         mainPanel.setBackground(Color.WHITE); // Background panel utama
 
         // Left Panel (Logo & Title)
         JPanel leftPanel = new JPanel(new GridBagLayout()); // Menggunakan GridBagLayout untuk pemusatan
         leftPanel.setBackground(DARK_BLUE);
-        leftPanel.setPreferredSize(new Dimension(500, 0)); // Lebar tetap 500
 
         JPanel logoContentPanel = new JPanel(); // Panel untuk menampung logo dan subtitle
         logoContentPanel.setBackground(DARK_BLUE);
@@ -153,7 +147,7 @@ public class RegisterView extends JFrame {
         logoContentPanel.add(subtitleLabel);
         logoContentPanel.add(Box.createVerticalGlue()); // Push content to center vertically
 
-        leftPanel.add(logoContentPanel); // Tambahkan logoContentPanel ke leftPanel yang ber-GridBagLayout
+        leftPanel.add(logoContentPanel, new GridBagConstraints()); // Tambahkan logoContentPanel ke leftPanel yang ber-GridBagLayout
 
         // Right Panel (Forms)
         JPanel rightPanel = new JPanel(new BorderLayout()); // Gunakan BorderLayout untuk mainFormPanel
@@ -171,8 +165,17 @@ public class RegisterView extends JFrame {
 
         rightPanel.add(mainFormPanel, BorderLayout.CENTER); // mainFormPanel akan mengambil seluruh ruang di rightPanel
 
-        mainPanel.add(leftPanel, BorderLayout.WEST);
-        mainPanel.add(rightPanel, BorderLayout.CENTER);
+        GridBagConstraints mainGbc = new GridBagConstraints();
+        mainGbc.fill = GridBagConstraints.BOTH;
+        mainGbc.weighty = 1.0;
+
+        mainGbc.weightx = 0.4;
+        mainGbc.gridx = 0;
+        mainPanel.add(leftPanel, mainGbc);
+
+        mainGbc.weightx = 0.6;
+        mainGbc.gridx = 1;
+        mainPanel.add(rightPanel, mainGbc);
 
         setContentPane(mainPanel);
     }
@@ -182,54 +185,61 @@ public class RegisterView extends JFrame {
         step1Panel.setBackground(Color.WHITE);
         step1Panel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50)); // Padding di sekitar form
 
-        JPanel formContentPanel = new JPanel(); // Panel baru untuk menampung semua input form
-        formContentPanel.setLayout(new BoxLayout(formContentPanel, BoxLayout.Y_AXIS));
+        JPanel formContentPanel = new JPanel(new GridBagLayout());
         formContentPanel.setBackground(Color.WHITE);
-        formContentPanel.setMaximumSize(new Dimension(FIELD_SIZE.width + 100, Integer.MAX_VALUE)); // Lebar maksimum untuk form
 
         JLabel titleLabel = new JLabel("Daftar Akun Baru"); // Mengubah teks
         titleLabel.setFont(new Font("Arial", Font.BOLD, 32)); // Ukuran font lebih besar
         titleLabel.setForeground(DARK_BLUE);
         titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT); // Align left
 
-        formContentPanel.add(titleLabel);
-        formContentPanel.add(Box.createRigidArea(new Dimension(0, 30))); // Jarak dari judul
+        GridBagConstraints gbcForm = new GridBagConstraints();
+        gbcForm.gridx = 0;
+        gbcForm.weightx = 1.0;
+        gbcForm.fill = GridBagConstraints.HORIZONTAL;
 
-        // Helper method for adding labeled fields
-        addFormField(formContentPanel, "Nama Lengkap", nameField);
-        addFormField(formContentPanel, "Email", emailField);
-        addFormField(formContentPanel, "Password", passwordField); // PasswordField sekarang juga Placeholder
-        addFormField(formContentPanel, "Kontak", contactField);
+        gbcForm.insets = new Insets(0, 0, 20, 0);
+        gbcForm.gridy = 0;
+        formContentPanel.add(titleLabel, gbcForm);
 
-        // Role ComboBox
-        JLabel roleLabel = new JLabel("Pilih Peran Anda"); // Mengubah teks
-        roleLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        roleLabel.setForeground(new Color(75, 85, 99));
-        roleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        formContentPanel.add(roleLabel);
-        formContentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
-        roleComboBox.setAlignmentX(Component.LEFT_ALIGNMENT);
-        roleComboBox.setMaximumSize(FIELD_SIZE); // Menggunakan FIELD_SIZE
-        formContentPanel.add(roleComboBox);
-        formContentPanel.add(Box.createRigidArea(new Dimension(0, 30))); // Jarak setelah role
+        gbcForm.insets = new Insets(5, 0, 5, 0);
+        gbcForm.gridy++;
+        formContentPanel.add(new JLabel("Nama Lengkap"), gbcForm);
+        gbcForm.gridy++;
+        formContentPanel.add(nameField, gbcForm);
 
-        // Continue Button
-        continueButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-        continueButton.setMaximumSize(BUTTON_SIZE); // Menggunakan BUTTON_SIZE
-        formContentPanel.add(continueButton);
-        formContentPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        gbcForm.gridy++;
+        formContentPanel.add(new JLabel("Email"), gbcForm);
+        gbcForm.gridy++;
+        formContentPanel.add(emailField, gbcForm);
 
-        // Login Link Panel
-        JPanel loginPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0)); // Align left
+        gbcForm.gridy++;
+        formContentPanel.add(new JLabel("Password"), gbcForm);
+        gbcForm.gridy++;
+        formContentPanel.add(passwordField, gbcForm);
+
+        gbcForm.gridy++;
+        formContentPanel.add(new JLabel("Kontak"), gbcForm);
+        gbcForm.gridy++;
+        formContentPanel.add(contactField, gbcForm);
+
+        gbcForm.gridy++;
+        formContentPanel.add(new JLabel("Pilih Peran Anda"), gbcForm);
+        gbcForm.gridy++;
+        formContentPanel.add(roleComboBox, gbcForm);
+
+        gbcForm.gridy++;
+        gbcForm.insets = new Insets(15, 0, 10, 0);
+        formContentPanel.add(continueButton, gbcForm);
+
+        JPanel loginPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         loginPanel.setBackground(Color.WHITE);
-        loginPanel.setAlignmentX(Component.LEFT_ALIGNMENT); // Penting untuk BoxLayout Y_AXIS
-        loginPanel.setMaximumSize(new Dimension(FIELD_SIZE.width, 30)); // Batasi lebar
-        JLabel alreadyHaveLabel = new JLabel("Sudah punya akun? "); // Mengubah teks
+        JLabel alreadyHaveLabel = new JLabel("Sudah punya akun? ");
         alreadyHaveLabel.setFont(new Font("Arial", Font.PLAIN, 14));
         alreadyHaveLabel.setForeground(new Color(107, 114, 128));
         loginPanel.add(alreadyHaveLabel);
 
-        JButton logInLink = new JButton("Masuk"); // Mengubah teks
+        JButton logInLink = new JButton("Masuk");
         logInLink.setBorderPainted(false);
         logInLink.setContentAreaFilled(false);
         logInLink.setForeground(LIGHT_BLUE);
@@ -239,7 +249,9 @@ public class RegisterView extends JFrame {
         logInLink.addActionListener(e -> openLoginView());
         loginPanel.add(logInLink);
 
-        formContentPanel.add(loginPanel);
+        gbcForm.gridy++;
+        gbcForm.insets = new Insets(10, 0, 0, 0);
+        formContentPanel.add(loginPanel, gbcForm);
 
         // Add formContentPanel to step1Panel, centered
         GridBagConstraints gbc = new GridBagConstraints();
@@ -247,20 +259,6 @@ public class RegisterView extends JFrame {
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.CENTER;
         step1Panel.add(formContentPanel, gbc);
-    }
-
-    // Helper method to add a label and a field with consistent styling
-    private void addFormField(JPanel parentPanel, String labelText, JComponent field) {
-        JLabel label = new JLabel(labelText);
-        label.setFont(new Font("Arial", Font.PLAIN, 14));
-        label.setForeground(new Color(75, 85, 99));
-        label.setAlignmentX(Component.LEFT_ALIGNMENT);
-        parentPanel.add(label);
-        parentPanel.add(Box.createRigidArea(new Dimension(0, 5))); // Small space between label and field
-        field.setAlignmentX(Component.LEFT_ALIGNMENT);
-        field.setMaximumSize(FIELD_SIZE); // Menggunakan FIELD_SIZE
-        parentPanel.add(field);
-        parentPanel.add(Box.createRigidArea(new Dimension(0, 20))); // Space after field
     }
 
 
@@ -303,7 +301,6 @@ public class RegisterView extends JFrame {
         specLabel.setForeground(new Color(75, 85, 99));
         specPanel.add(specLabel);
         specPanel.add(Box.createRigidArea(new Dimension(5,0))); // Add small space
-        specializationField.setPreferredSize(FIELD_SIZE); // Ensure consistent size
         specPanel.add(specializationField);
         gbcContent.gridx = 0;
         gbcContent.gridy = 0;
@@ -357,7 +354,6 @@ public class RegisterView extends JFrame {
         }
 
         JScrollPane scrollPane = new JScrollPane(caregiverPatientPanel);
-        scrollPane.setPreferredSize(new Dimension(FIELD_SIZE.width + 100, 250)); // Lebar scrollPane sesuai form
         scrollPane.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createLineBorder(new Color(180, 180, 180)),
                 "Pilih Pasien",
@@ -414,7 +410,6 @@ public class RegisterView extends JFrame {
         relationLabel.setForeground(new Color(75, 85, 99));
         relationPanel.add(relationLabel);
         relationPanel.add(Box.createRigidArea(new Dimension(5,0))); // Add small space
-        relationshipField.setPreferredSize(FIELD_SIZE); // Ensure consistent size
         relationPanel.add(relationshipField);
         gbcContent.gridx = 0;
         gbcContent.gridy = 0;
@@ -466,7 +461,6 @@ public class RegisterView extends JFrame {
         }
 
         JScrollPane scrollPane = new JScrollPane(familyPatientPanel);
-        scrollPane.setPreferredSize(new Dimension(FIELD_SIZE.width + 100, 250)); // Lebar scrollPane sesuai form
         scrollPane.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createLineBorder(new Color(180, 180, 180)),
                 "Pilih Pasien",

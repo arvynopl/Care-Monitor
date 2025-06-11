@@ -32,25 +32,22 @@ public class LoginView extends JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setMinimumSize(new Dimension(1000, 600));
         
-        emailField = new JTextField();
-        passwordField = new JPasswordField();
+        emailField = new JTextField(20);
+        passwordField = new JPasswordField(20);
         loginButton = new JButton("Log In");
-        
-        emailField.setPreferredSize(new Dimension(300, 45));
+
         emailField.setFont(new Font("Arial", Font.PLAIN, 14));
         emailField.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(FIELD_BORDER, 1),
             BorderFactory.createEmptyBorder(10, 15, 10, 15)
         ));
-        
-        passwordField.setPreferredSize(new Dimension(300, 45));
+
         passwordField.setFont(new Font("Arial", Font.PLAIN, 14));
         passwordField.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(FIELD_BORDER, 1),
             BorderFactory.createEmptyBorder(10, 15, 10, 15)
         ));
-        
-        loginButton.setPreferredSize(new Dimension(300, 45));
+
         loginButton.setFont(new Font("Arial", Font.BOLD, 16));
         loginButton.setBackground(DARK_BLUE);
         loginButton.setForeground(Color.WHITE);
@@ -69,12 +66,11 @@ public class LoginView extends JFrame {
     }
 
     private void setupLayout() {
-        JPanel mainPanel = new JPanel(new BorderLayout());
+        JPanel mainPanel = new JPanel(new GridBagLayout());
         mainPanel.setBackground(Color.WHITE);
-        
-        JPanel leftPanel = new JPanel();
+
+        JPanel leftPanel = new JPanel(new GridBagLayout());
         leftPanel.setBackground(DARK_BLUE);
-        leftPanel.setPreferredSize(new Dimension(500, 0));
         
         JPanel logoPanel = new JPanel();
         logoPanel.setBackground(DARK_BLUE);
@@ -97,17 +93,15 @@ public class LoginView extends JFrame {
         logoPanel.add(subtitleLabel);
         logoPanel.add(Box.createVerticalGlue());
         
-        leftPanel.add(logoPanel);
+        leftPanel.add(logoPanel, new GridBagConstraints());
         
         JPanel rightPanel = new JPanel();
         rightPanel.setBackground(Color.WHITE);
         rightPanel.setLayout(new GridBagLayout());
         
-        JPanel formPanel = new JPanel();
-        formPanel.setLayout(new BoxLayout(formPanel, BoxLayout.Y_AXIS));
+        JPanel formPanel = new JPanel(new GridBagLayout());
         formPanel.setBackground(Color.WHITE);
         formPanel.setBorder(new EmptyBorder(50, 50, 50, 50));
-        formPanel.setMaximumSize(new Dimension(400, 500));
         
         JLabel titleLabel = new JLabel("Log In");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 32));
@@ -121,7 +115,6 @@ public class LoginView extends JFrame {
         emailLabel.setBorder(new EmptyBorder(0, 0, 8, 0));
         
         emailField.setAlignmentX(Component.LEFT_ALIGNMENT);
-        emailField.setMaximumSize(new Dimension(300, 45));
         
         JLabel passwordLabel = new JLabel("Password");
         passwordLabel.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -130,15 +123,12 @@ public class LoginView extends JFrame {
         passwordLabel.setBorder(new EmptyBorder(0, 0, 8, 0));
         
         passwordField.setAlignmentX(Component.LEFT_ALIGNMENT);
-        passwordField.setMaximumSize(new Dimension(300, 45));
         
         loginButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-        loginButton.setMaximumSize(new Dimension(300, 45));
         
         JPanel registerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         registerPanel.setBackground(Color.WHITE);
         registerPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        registerPanel.setMaximumSize(new Dimension(300, 30));
         
         JLabel dontHaveLabel = new JLabel("Don't have account? ");
         dontHaveLabel.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -156,30 +146,53 @@ public class LoginView extends JFrame {
         registerPanel.add(dontHaveLabel);
         registerPanel.add(signUpLink);
         
-        formPanel.add(titleLabel);
-        formPanel.add(Box.createRigidArea(new Dimension(0, 40)));
+        GridBagConstraints gbcForm = new GridBagConstraints();
+        gbcForm.gridx = 0;
+        gbcForm.fill = GridBagConstraints.HORIZONTAL;
+        gbcForm.weightx = 1.0;
+
+        gbcForm.insets = new Insets(0, 0, 20, 0);
+        gbcForm.gridy = 0;
+        formPanel.add(titleLabel, gbcForm);
+
+        gbcForm.insets = new Insets(5, 0, 5, 0);
+        gbcForm.gridy++;
+        formPanel.add(emailLabel, gbcForm);
+        gbcForm.gridy++;
+        formPanel.add(emailField, gbcForm);
+
+        gbcForm.gridy++;
+        formPanel.add(passwordLabel, gbcForm);
+        gbcForm.gridy++;
+        formPanel.add(passwordField, gbcForm);
+
+        gbcForm.gridy++;
+        gbcForm.insets = new Insets(15, 0, 5, 0);
+        formPanel.add(loginButton, gbcForm);
+
+        gbcForm.gridy++;
+        gbcForm.insets = new Insets(10, 0, 0, 0);
+        formPanel.add(registerPanel, gbcForm);
         
-        formPanel.add(emailLabel);
-        formPanel.add(emailField);
-        formPanel.add(Box.createRigidArea(new Dimension(0, 20)));
-        
-        formPanel.add(passwordLabel);
-        formPanel.add(passwordField);
-        formPanel.add(Box.createRigidArea(new Dimension(0, 30)));
-        
-        formPanel.add(loginButton);
-        formPanel.add(Box.createRigidArea(new Dimension(0, 20)));
-        
-        formPanel.add(registerPanel);
-        
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.CENTER;
-        rightPanel.add(formPanel, gbc);
-        
-        mainPanel.add(leftPanel, BorderLayout.WEST);
-        mainPanel.add(rightPanel, BorderLayout.CENTER);
+        GridBagConstraints rightGbc = new GridBagConstraints();
+        rightGbc.gridx = 0;
+        rightGbc.gridy = 0;
+        rightGbc.weightx = 1.0;
+        rightGbc.weighty = 1.0;
+        rightGbc.fill = GridBagConstraints.BOTH;
+        rightPanel.add(formPanel, rightGbc);
+
+        GridBagConstraints mainGbc = new GridBagConstraints();
+        mainGbc.fill = GridBagConstraints.BOTH;
+        mainGbc.weighty = 1.0;
+
+        mainGbc.weightx = 0.4;
+        mainGbc.gridx = 0;
+        mainPanel.add(leftPanel, mainGbc);
+
+        mainGbc.weightx = 0.6;
+        mainGbc.gridx = 1;
+        mainPanel.add(rightPanel, mainGbc);
         
         setContentPane(mainPanel);
     }
