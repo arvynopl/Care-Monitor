@@ -5,6 +5,7 @@ import com.caremonitor.model.Patient;
 import com.caremonitor.model.HealthData;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import com.caremonitor.view.theme.UIStyles;
 import java.text.SimpleDateFormat;
@@ -17,7 +18,7 @@ public class PatientCard extends JPanel {
         this.patient = patient;
         this.healthData = healthData;
         
-        setLayout(new BorderLayout());
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBackground(Color.WHITE);
         setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(UIStyles.LIGHT_GRAY_229, 1),
@@ -72,7 +73,8 @@ public class PatientCard extends JPanel {
         headerPanel.add(nameLabel, BorderLayout.WEST);
         headerPanel.add(statusLabel, BorderLayout.EAST);
         
-        JPanel dataPanel = new JPanel(new GridLayout(1, 4, 20, 0));
+        JPanel dataPanel = new JPanel();
+        dataPanel.setLayout(new BoxLayout(dataPanel, BoxLayout.Y_AXIS));
         dataPanel.setBackground(Color.WHITE);
         
         JPanel heartRatePanel = createDataItemPanel("Heart Rate", 
@@ -92,8 +94,11 @@ public class PatientCard extends JPanel {
             "");
         
         dataPanel.add(heartRatePanel);
+        dataPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         dataPanel.add(bpPanel);
+        dataPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         dataPanel.add(tempPanel);
+        dataPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         dataPanel.add(positionPanel);
         
         JPanel footerPanel = new JPanel(new BorderLayout());
@@ -110,16 +115,19 @@ public class PatientCard extends JPanel {
         lastUpdatedLabel.setForeground(Color.GRAY);
         
         footerPanel.add(lastUpdatedLabel, BorderLayout.WEST);
-        
-        add(headerPanel, BorderLayout.NORTH);
-        add(dataPanel, BorderLayout.CENTER);
-        add(footerPanel, BorderLayout.SOUTH);
+
+        add(headerPanel);
+        add(Box.createRigidArea(new Dimension(0, 10)));
+        add(dataPanel);
+        add(Box.createRigidArea(new Dimension(0, 10)));
+        add(footerPanel);
     }
     
     private JPanel createDataItemPanel(String label, String value, String unit) {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBackground(Color.WHITE);
+        panel.setBorder(new EmptyBorder(5, 5, 5, 5));
         
         JLabel labelText = new JLabel(label);
         labelText.setFont(UIStyles.ARIAL_PLAIN_12);
