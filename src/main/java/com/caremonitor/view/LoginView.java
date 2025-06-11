@@ -2,6 +2,7 @@
 package com.caremonitor.view;
 
 import com.caremonitor.controller.AuthController;
+import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -236,12 +237,8 @@ public class LoginView extends JFrame {
     }
     
     public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
+        FlatLightLaf.setup();
+
         SwingUtilities.invokeLater(() -> {
             new LoginView().setVisible(true);
         });
