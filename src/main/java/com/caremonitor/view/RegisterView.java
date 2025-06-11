@@ -6,6 +6,8 @@ import com.caremonitor.controller.PatientController;
 import com.caremonitor.model.Patient;
 
 import javax.swing.*;
+import com.caremonitor.view.components.StyledTextField;
+import com.caremonitor.view.components.PrimaryButton;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder; // Import LineBorder
@@ -21,24 +23,24 @@ import java.util.List;
 import java.util.Map;
 
 public class RegisterView extends JFrame {
-    private JTextField nameField;
-    private JTextField emailField;
-    private JPasswordField passwordField; // Tetap JPasswordField
-    private JTextField contactField;
+    private StyledTextField nameField;
+    private StyledTextField emailField;
+    private StyledTextField.StyledPasswordField passwordField; // Tetap JPasswordField
+    private StyledTextField contactField;
     private JComboBox<String> roleComboBox;
-    private JButton continueButton;
+    private PrimaryButton continueButton;
 
-    private JTextField specializationField;
+    private StyledTextField specializationField;
     private JPanel caregiverPatientPanel;
     private List<JCheckBox> caregiverPatientCheckboxes;
     private Map<JCheckBox, JTextField> caregiverPatientCodes;
 
-    private JTextField relationshipField;
+    private StyledTextField relationshipField;
     private JPanel familyPatientPanel;
     private List<JCheckBox> familyPatientCheckboxes;
     private Map<JCheckBox, JTextField> familyPatientCodes;
 
-    private JButton registerButton;
+    private PrimaryButton registerButton;
     private JButton backButton;
 
     private AuthController authController;
@@ -78,17 +80,17 @@ public class RegisterView extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH); // Membuat window fullscreen
 
-        nameField = new PlaceholderTextField("Masukkan nama lengkap Anda"); // Pass placeholder to constructor
-        emailField = new PlaceholderTextField("contoh@email.com");
-        // PERBAIKAN DI SINI: Gunakan PlaceholderPasswordField untuk passwordField
-        passwordField = new PlaceholderPasswordField("Minimal 8 karakter");
-        contactField = new PlaceholderTextField("Nomor telepon atau kontak lainnya");
+        nameField = new StyledTextField("Masukkan nama lengkap Anda"); // Pass placeholder to constructor
+        emailField = new StyledTextField("contoh@email.com");
+        // PERBAIKAN DI SINI: Gunakan StyledTextField.StyledPasswordField untuk passwordField
+        passwordField = new StyledTextField.StyledPasswordField("Minimal 8 karakter");
+        contactField = new StyledTextField("Nomor telepon atau kontak lainnya");
         roleComboBox = new JComboBox<>(new String[]{"-- Pilih Peran --", "Caregiver", "Family"}); // Mengubah teks
-        continueButton = new JButton("Lanjut Pendaftaran");
+        continueButton = new PrimaryButton("Lanjut Pendaftaran");
 
-        specializationField = new PlaceholderTextField("Contoh: Dokter Umum, Perawat");
-        relationshipField = new PlaceholderTextField("Contoh: Orang Tua, Pasangan, Anak");
-        registerButton = new JButton("Daftar Sekarang"); // Mengubah teks
+        specializationField = new StyledTextField("Contoh: Dokter Umum, Perawat");
+        relationshipField = new StyledTextField("Contoh: Orang Tua, Pasangan, Anak");
+        registerButton = new PrimaryButton("Daftar Sekarang"); // Mengubah teks
         backButton = new JButton("Kembali"); // Mengubah teks
 
         // Store default borders for validation feedback
@@ -350,7 +352,7 @@ public class RegisterView extends JFrame {
                 checkbox.setFont(UIStyles.ARIAL_PLAIN_14);
                 caregiverPatientCheckboxes.add(checkbox);
 
-                PlaceholderTextField codeField = new PlaceholderTextField(); // Ini sudah benar
+                StyledTextField codeField = new StyledTextField(); // Ini sudah benar
                 codeField.setEnabled(false);
                 codeField.setPlaceholderText("Kode Unik Pasien");
                 codeField.setPreferredSize(CODE_FIELD_SIZE);
@@ -459,7 +461,7 @@ public class RegisterView extends JFrame {
                 checkbox.setFont(UIStyles.ARIAL_PLAIN_14);
                 familyPatientCheckboxes.add(checkbox);
 
-                PlaceholderTextField codeField = new PlaceholderTextField(); // Ini sudah benar
+                StyledTextField codeField = new StyledTextField(); // Ini sudah benar
                 codeField.setEnabled(false);
                 codeField.setPlaceholderText("Kode Unik Pasien");
                 codeField.setPreferredSize(CODE_FIELD_SIZE);
@@ -732,83 +734,4 @@ public class RegisterView extends JFrame {
         this.dispose();
     }
 
-    // Class untuk JTextField dengan placeholder
-    private static class PlaceholderTextField extends JTextField {
-        private String placeholder;
-
-        public PlaceholderTextField() {
-            this(null); // Call constructor with null placeholder
-        }
-
-        public PlaceholderTextField(String placeholder) {
-            this.placeholder = placeholder;
-            setBorder(BorderFactory.createCompoundBorder(
-                    new LineBorder(UIStyles.SUBTITLE_GRAY, 1), // Border abu-abu tipis
-                    new EmptyBorder(10, 10, 10, 10))); // Padding internal
-            setFont(UIStyles.ARIAL_PLAIN_14);
-            setOpaque(false); // Make it non-opaque so background can be drawn
-        }
-
-        public void setPlaceholderText(String placeholder) {
-            this.placeholder = placeholder;
-            repaint(); // Repaint to show placeholder immediately if text is empty
-        }
-
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-
-            if (placeholder != null && getText().isEmpty() && !hasFocus()) {
-                Graphics2D g2 = (Graphics2D) g.create();
-                g2.setColor(Color.GRAY);
-                g2.setFont(getFont().deriveFont(Font.ITALIC));
-                FontMetrics fm = g2.getFontMetrics();
-                int x = getInsets().left;
-                int y = (getHeight() - fm.getHeight()) / 2 + fm.getAscent();
-                g2.drawString(placeholder, x, y);
-                g2.dispose();
-            }
-        }
-    }
-
-    // KELAS BARU UNTUK JPasswordField dengan placeholder
-    private static class PlaceholderPasswordField extends JPasswordField {
-        private String placeholder;
-
-        public PlaceholderPasswordField() {
-            this(null);
-        }
-
-        public PlaceholderPasswordField(String placeholder) {
-            this.placeholder = placeholder;
-            setBorder(BorderFactory.createCompoundBorder(
-                    new LineBorder(UIStyles.SUBTITLE_GRAY, 1), // Border abu-abu tipis
-                    new EmptyBorder(10, 10, 10, 10))); // Padding internal
-            setFont(UIStyles.ARIAL_PLAIN_14);
-            setEchoChar('•'); // Karakter standar untuk password
-            setOpaque(false); // Make it non-opaque so background can be drawn
-        }
-
-        public void setPlaceholderText(String placeholder) {
-            this.placeholder = placeholder;
-            repaint();
-        }
-
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-
-            // Only draw placeholder if document is empty AND component is not focused
-            if (placeholder != null && getPassword().length == 0 && !hasFocus()) {
-                Graphics2D g2 = (Graphics2D) g.create();
-                g2.setColor(Color.GRAY);
-                g2.setFont(getFont().deriveFont(Font.ITALIC));
-                FontMetrics fm = g2.getFontMetrics();
-                int x = getInsets().left;
-                int y = (getHeight() - fm.getHeight()) / 2 + fm.getAscent();
-                g2.drawString(placeholder, x, y);
-                g2.dispose();
-            }
-        }
-    }
 }

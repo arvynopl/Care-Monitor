@@ -5,6 +5,8 @@ import com.caremonitor.controller.AuthController;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
+import com.caremonitor.view.components.StyledTextField;
+import com.caremonitor.view.components.PrimaryButton;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import net.miginfocom.swing.MigLayout;
@@ -13,9 +15,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LoginView extends JFrame {
-    private JTextField emailField;
-    private JPasswordField passwordField;
-    private JButton loginButton;
+    private StyledTextField emailField;
+    private StyledTextField.StyledPasswordField passwordField;
+    private PrimaryButton loginButton;
     private AuthController authController;
     
 
@@ -32,9 +34,9 @@ public class LoginView extends JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setMinimumSize(new Dimension(1000, 600));
         
-        emailField = new JTextField();
-        passwordField = new JPasswordField();
-        loginButton = new JButton("Log In");
+        emailField = new StyledTextField();
+        passwordField = new StyledTextField.StyledPasswordField();
+        loginButton = new PrimaryButton("Log In");
         
         emailField.setFont(UIStyles.ARIAL_PLAIN_14);
         emailField.setBorder(BorderFactory.createCompoundBorder(
