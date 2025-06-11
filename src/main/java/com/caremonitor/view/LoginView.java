@@ -102,7 +102,7 @@ public class LoginView extends JFrame {
         
         JLabel titleLabel = new JLabel("Log In");
         titleLabel.setFont(UIStyles.ARIAL_BOLD_32);
-        titleLabel.setForeground(UIStyles.TEXT_DARK);
+        titleLabel.setForeground(UIStyles.DARK_BLUE);
         titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         
         JLabel emailLabel = new JLabel("Email");
