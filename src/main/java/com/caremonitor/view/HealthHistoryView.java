@@ -167,6 +167,9 @@ public class HealthHistoryView {
             false
         );
 
+        chart.getTitle().setFont(UIStyles.ARIAL_BOLD_14);
+        chart.getTitle().setPaint(DARK_BLUE);
+
         XYPlot plot = chart.getXYPlot();
         plot.setBackgroundPaint(Color.WHITE);
         plot.setDomainGridlinePaint(Color.LIGHT_GRAY);
@@ -174,9 +177,17 @@ public class HealthHistoryView {
         
         DateAxis dateAxis = (DateAxis) plot.getDomainAxis();
         dateAxis.setDateFormatOverride(new SimpleDateFormat("dd/MM"));
-        
+        dateAxis.setLabelFont(UIStyles.ARIAL_BOLD_14);
+        dateAxis.setTickLabelFont(UIStyles.ARIAL_PLAIN_12);
+        dateAxis.setLabelPaint(UIStyles.TEXT_DARK);
+        dateAxis.setTickLabelPaint(UIStyles.TEXT_MEDIUM);
+
         NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
         rangeAxis.setAutoRangeIncludesZero(false);
+        rangeAxis.setLabelFont(UIStyles.ARIAL_BOLD_14);
+        rangeAxis.setTickLabelFont(UIStyles.ARIAL_PLAIN_12);
+        rangeAxis.setLabelPaint(UIStyles.TEXT_DARK);
+        rangeAxis.setTickLabelPaint(UIStyles.TEXT_MEDIUM);
 
         XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
         renderer.setSeriesPaint(0, RED);
@@ -214,7 +225,7 @@ public class HealthHistoryView {
         healthTable.setRowHeight(25);
 
         JTableHeader header = healthTable.getTableHeader();
-        header.setFont(UIStyles.ARIAL_BOLD_12);
+        header.setFont(UIStyles.ARIAL_BOLD_14);
         header.setBackground(DARK_BLUE);
         header.setForeground(Color.WHITE);
         
@@ -226,7 +237,7 @@ public class HealthHistoryView {
                 c.setBackground(DARK_BLUE);
                 c.setForeground(Color.WHITE);
                 setHorizontalAlignment(SwingConstants.CENTER);
-                setFont(UIStyles.ARIAL_BOLD_12);
+                setFont(UIStyles.ARIAL_BOLD_14);
                 return c;
             }
         };
@@ -470,6 +481,8 @@ public class HealthHistoryView {
         plot.setDataset(dataset);
         
         chart.setTitle("Daily Average Health Parameters");
+        chart.getTitle().setFont(UIStyles.ARIAL_BOLD_14);
+        chart.getTitle().setPaint(DARK_BLUE);
         
         XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) plot.getRenderer();
         renderer.setSeriesPaint(0, RED);  
@@ -589,6 +602,8 @@ public class HealthHistoryView {
         plot.setDataset(dataset);
         
         chart.setTitle("Daily Average Health Parameters");
+        chart.getTitle().setFont(UIStyles.ARIAL_BOLD_14);
+        chart.getTitle().setPaint(DARK_BLUE);
         
         XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) plot.getRenderer();
         renderer.setSeriesPaint(0, RED);   
