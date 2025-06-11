@@ -10,6 +10,7 @@ import com.caremonitor.view.DashboardView;
 import com.caremonitor.view.components.SidebarPanel;
 import com.caremonitor.view.HealthHistoryView;
 import com.caremonitor.view.CriticalParametersView;
+import com.caremonitor.view.theme.UIStyles;
 
 import javax.swing.*;
 import java.awt.*;
@@ -88,6 +89,21 @@ public class AuthController {
         dashboardFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         dashboardFrame.setMinimumSize(new Dimension(1000, 600));
         JPanel mainPanel = new JPanel(new BorderLayout());
+
+        JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        headerPanel.setBackground(Color.WHITE);
+        headerPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JButton logoutButton = new JButton("Logout");
+        logoutButton.setBackground(UIStyles.DANGER_RED);
+        logoutButton.setForeground(Color.WHITE);
+        logoutButton.setFocusPainted(false);
+        logoutButton.setBorderPainted(false);
+        logoutButton.setOpaque(true);
+        logoutButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        headerPanel.add(logoutButton);
+
         SidebarPanel sidebarPanel = new SidebarPanel(user.getRole());
         CardLayout contentCardLayout = new CardLayout();
         JPanel contentPanel = new JPanel(contentCardLayout);
@@ -107,8 +123,11 @@ public class AuthController {
                        dashboardView, healthHistoryView, criticalParametersView, 
                        dashboardFrame, user);
         
+        mainPanel.add(headerPanel, BorderLayout.NORTH);
         mainPanel.add(sidebarPanel, BorderLayout.WEST);
         mainPanel.add(contentPanel, BorderLayout.CENTER);
+
+        logoutButton.addActionListener(e -> logout(dashboardFrame, dashboardView));
         
         dashboardFrame.setContentPane(mainPanel);
         
@@ -166,12 +185,6 @@ public class AuthController {
             });
         }
         
-        sidebarPanel.addLogoutListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                logout(dashboardFrame, dashboardView);
-            }
-        });
     }
     
     private void updateFrameTitle(JFrame frame, String currentView, User user) {
