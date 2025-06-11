@@ -9,6 +9,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder; // Import LineBorder
 import javax.swing.border.TitledBorder;
+import net.miginfocom.swing.MigLayout;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -178,58 +179,37 @@ public class RegisterView extends JFrame {
     }
 
     private void createStep1Panel() {
-        step1Panel = new JPanel(new GridBagLayout()); // Tetap GridBagLayout untuk centering
+        step1Panel = new JPanel(new MigLayout("align center", "[grow,fill]"));
         step1Panel.setBackground(Color.WHITE);
-        step1Panel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50)); // Padding di sekitar form
+        step1Panel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
 
-        JPanel formContentPanel = new JPanel(); // Panel baru untuk menampung semua input form
-        formContentPanel.setLayout(new BoxLayout(formContentPanel, BoxLayout.Y_AXIS));
-        formContentPanel.setBackground(Color.WHITE);
-        formContentPanel.setMaximumSize(new Dimension(FIELD_SIZE.width + 100, Integer.MAX_VALUE)); // Lebar maksimum untuk form
-
-        JLabel titleLabel = new JLabel("Daftar Akun Baru"); // Mengubah teks
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 32)); // Ukuran font lebih besar
+        JLabel titleLabel = new JLabel("Daftar Akun Baru");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 32));
         titleLabel.setForeground(DARK_BLUE);
-        titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT); // Align left
+        step1Panel.add(titleLabel, "align left, wrap 30");
 
-        formContentPanel.add(titleLabel);
-        formContentPanel.add(Box.createRigidArea(new Dimension(0, 30))); // Jarak dari judul
+        addFormField(step1Panel, "Nama Lengkap", nameField);
+        addFormField(step1Panel, "Email", emailField);
+        addFormField(step1Panel, "Password", passwordField);
+        addFormField(step1Panel, "Kontak", contactField);
 
-        // Helper method for adding labeled fields
-        addFormField(formContentPanel, "Nama Lengkap", nameField);
-        addFormField(formContentPanel, "Email", emailField);
-        addFormField(formContentPanel, "Password", passwordField); // PasswordField sekarang juga Placeholder
-        addFormField(formContentPanel, "Kontak", contactField);
-
-        // Role ComboBox
-        JLabel roleLabel = new JLabel("Pilih Peran Anda"); // Mengubah teks
+        JLabel roleLabel = new JLabel("Pilih Peran Anda");
         roleLabel.setFont(new Font("Arial", Font.PLAIN, 14));
         roleLabel.setForeground(new Color(75, 85, 99));
-        roleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        formContentPanel.add(roleLabel);
-        formContentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
-        roleComboBox.setAlignmentX(Component.LEFT_ALIGNMENT);
-        roleComboBox.setMaximumSize(FIELD_SIZE); // Menggunakan FIELD_SIZE
-        formContentPanel.add(roleComboBox);
-        formContentPanel.add(Box.createRigidArea(new Dimension(0, 30))); // Jarak setelah role
+        step1Panel.add(roleLabel, "align left, wrap");
+        roleComboBox.setMaximumSize(FIELD_SIZE);
+        step1Panel.add(roleComboBox, "growx, wrap 30");
 
-        // Continue Button
-        continueButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-        continueButton.setMaximumSize(BUTTON_SIZE); // Menggunakan BUTTON_SIZE
-        formContentPanel.add(continueButton);
-        formContentPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        step1Panel.add(continueButton, "growx, wrap 20");
 
-        // Login Link Panel
-        JPanel loginPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0)); // Align left
+        JPanel loginPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         loginPanel.setBackground(Color.WHITE);
-        loginPanel.setAlignmentX(Component.LEFT_ALIGNMENT); // Penting untuk BoxLayout Y_AXIS
-        loginPanel.setMaximumSize(new Dimension(FIELD_SIZE.width, 30)); // Batasi lebar
-        JLabel alreadyHaveLabel = new JLabel("Sudah punya akun? "); // Mengubah teks
+        JLabel alreadyHaveLabel = new JLabel("Sudah punya akun? ");
         alreadyHaveLabel.setFont(new Font("Arial", Font.PLAIN, 14));
         alreadyHaveLabel.setForeground(new Color(107, 114, 128));
         loginPanel.add(alreadyHaveLabel);
 
-        JButton logInLink = new JButton("Masuk"); // Mengubah teks
+        JButton logInLink = new JButton("Masuk");
         logInLink.setBorderPainted(false);
         logInLink.setContentAreaFilled(false);
         logInLink.setForeground(LIGHT_BLUE);
@@ -239,14 +219,7 @@ public class RegisterView extends JFrame {
         logInLink.addActionListener(e -> openLoginView());
         loginPanel.add(logInLink);
 
-        formContentPanel.add(loginPanel);
-
-        // Add formContentPanel to step1Panel, centered
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.CENTER;
-        step1Panel.add(formContentPanel, gbc);
+        step1Panel.add(loginPanel, "align left");
     }
 
     // Helper method to add a label and a field with consistent styling
@@ -254,13 +227,9 @@ public class RegisterView extends JFrame {
         JLabel label = new JLabel(labelText);
         label.setFont(new Font("Arial", Font.PLAIN, 14));
         label.setForeground(new Color(75, 85, 99));
-        label.setAlignmentX(Component.LEFT_ALIGNMENT);
-        parentPanel.add(label);
-        parentPanel.add(Box.createRigidArea(new Dimension(0, 5))); // Small space between label and field
-        field.setAlignmentX(Component.LEFT_ALIGNMENT);
-        field.setMaximumSize(FIELD_SIZE); // Menggunakan FIELD_SIZE
-        parentPanel.add(field);
-        parentPanel.add(Box.createRigidArea(new Dimension(0, 20))); // Space after field
+        parentPanel.add(label, "align left, wrap");
+        field.setMaximumSize(FIELD_SIZE);
+        parentPanel.add(field, "growx, wrap 15");
     }
 
 

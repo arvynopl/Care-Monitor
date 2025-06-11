@@ -5,6 +5,7 @@ import com.caremonitor.controller.AuthController;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import net.miginfocom.swing.MigLayout;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -99,12 +100,10 @@ public class LoginView extends JFrame {
         
         leftPanel.add(logoPanel);
         
-        JPanel rightPanel = new JPanel();
+        JPanel rightPanel = new JPanel(new MigLayout("align center"));
         rightPanel.setBackground(Color.WHITE);
-        rightPanel.setLayout(new GridBagLayout());
-        
-        JPanel formPanel = new JPanel();
-        formPanel.setLayout(new BoxLayout(formPanel, BoxLayout.Y_AXIS));
+
+        JPanel formPanel = new JPanel(new MigLayout("wrap 1", "[grow,fill]", "[]20[]20[]20[]20[]"));
         formPanel.setBackground(Color.WHITE);
         formPanel.setBorder(new EmptyBorder(50, 50, 50, 50));
         formPanel.setMaximumSize(new Dimension(400, 500));
@@ -156,27 +155,15 @@ public class LoginView extends JFrame {
         registerPanel.add(dontHaveLabel);
         registerPanel.add(signUpLink);
         
-        formPanel.add(titleLabel);
-        formPanel.add(Box.createRigidArea(new Dimension(0, 40)));
-        
-        formPanel.add(emailLabel);
-        formPanel.add(emailField);
-        formPanel.add(Box.createRigidArea(new Dimension(0, 20)));
-        
-        formPanel.add(passwordLabel);
-        formPanel.add(passwordField);
-        formPanel.add(Box.createRigidArea(new Dimension(0, 30)));
-        
-        formPanel.add(loginButton);
-        formPanel.add(Box.createRigidArea(new Dimension(0, 20)));
-        
-        formPanel.add(registerPanel);
-        
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.CENTER;
-        rightPanel.add(formPanel, gbc);
+        formPanel.add(titleLabel, "wrap 20");
+        formPanel.add(emailLabel, "align left, wrap");
+        formPanel.add(emailField, "growx, wrap 20");
+        formPanel.add(passwordLabel, "align left, wrap");
+        formPanel.add(passwordField, "growx, wrap 20");
+        formPanel.add(loginButton, "growx, wrap 20");
+        formPanel.add(registerPanel, "align left");
+
+        rightPanel.add(formPanel, "growx");
         
         mainPanel.add(leftPanel, BorderLayout.WEST);
         mainPanel.add(rightPanel, BorderLayout.CENTER);
