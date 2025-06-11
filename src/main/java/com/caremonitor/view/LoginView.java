@@ -81,12 +81,16 @@ public class LoginView extends JFrame {
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(Color.WHITE);
 
-        JPanel leftPanel = new JPanel(new MigLayout("center, flowy", "[grow]", "push[]10[]push"));
+        JPanel leftPanel = new JPanel(new GridBagLayout());
         leftPanel.setBackground(UIStyles.DARK_BLUE);
         leftPanel.setPreferredSize(new Dimension(UIStyles.AUTH_LEFT_PANEL_WIDTH, 0));
-        
+
         AuthLogoPanel logoPanel = new AuthLogoPanel();
-        leftPanel.add(logoPanel);
+        GridBagConstraints gbcLeft = new GridBagConstraints();
+        gbcLeft.gridx = 0;
+        gbcLeft.gridy = 0;
+        gbcLeft.anchor = GridBagConstraints.CENTER;
+        leftPanel.add(logoPanel, gbcLeft);
         
         JPanel rightPanel = new JPanel(new GridBagLayout());
         rightPanel.setBackground(Color.WHITE);
