@@ -14,6 +14,7 @@ import com.caremonitor.view.components.AlertPanel;
 import javax.swing.*;
 // import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import net.miginfocom.swing.MigLayout;
 import com.caremonitor.view.theme.UIStyles;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +46,7 @@ public class DashboardView {
     }
 
     private void initializeComponents() {
-        mainPanel = new JPanel(new BorderLayout());
+        mainPanel = new JPanel(new MigLayout("fill", "[grow][300!]", "[]20[grow]"));
         mainPanel.setBackground(Color.WHITE);
 
         JPanel headerPanel = new JPanel(new BorderLayout());
@@ -57,7 +58,7 @@ public class DashboardView {
         titleLabel.setForeground(UIStyles.DARK_BLUE);
         headerPanel.add(titleLabel, BorderLayout.WEST);
 
-        JPanel contentPanel = new JPanel(new BorderLayout());
+        JPanel contentPanel = new JPanel(new MigLayout("fill", "[grow][300!]", "[grow]"));
         contentPanel.setBackground(Color.WHITE);
         contentPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 20, 20));
 
@@ -100,14 +101,11 @@ public class DashboardView {
         alertsSection.add(alertsLabel, BorderLayout.NORTH);
         alertsSection.add(alertsScrollPane, BorderLayout.CENTER);
 
-        contentPanel.add(patientsSection, BorderLayout.CENTER);
-        contentPanel.add(alertsSection, BorderLayout.EAST);
+        contentPanel.add(patientsSection, "grow, push");
+        contentPanel.add(alertsSection, "w 300!, growy");
 
-        patientsSection.setPreferredSize(new Dimension(0, 0));
-        alertsSection.setPreferredSize(new Dimension(300, 0));
-
-        mainPanel.add(headerPanel, BorderLayout.NORTH);
-        mainPanel.add(contentPanel, BorderLayout.CENTER);
+        mainPanel.add(headerPanel, "dock north");
+        mainPanel.add(contentPanel, "grow");
     }
 
     private void loadPatients() {
