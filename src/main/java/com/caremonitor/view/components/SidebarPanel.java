@@ -72,7 +72,6 @@ public class SidebarPanel extends JPanel {
         }
         
         add(Box.createVerticalGlue());
-        add(logoutLabel);
         add(Box.createRigidArea(new Dimension(0, 30)));
     }
     
