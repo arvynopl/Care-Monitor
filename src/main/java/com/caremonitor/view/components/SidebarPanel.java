@@ -41,8 +41,8 @@ public class SidebarPanel extends JPanel {
         if ("CAREGIVER".equals(userRole)) {
             criticalParametersLabel = createMenuLabel("Critical Parameters", false);
         }
-        
-        logoutLabel = createMenuLabel("Logout", false);
+
+        logoutLabel = createMenuLabel("Logout", false, UIStyles.SOFT_RED);
         logoutLabel.setForeground(UIStyles.DANGER_RED);
         
         activeLabel = healthDashboardLabel;
@@ -73,10 +73,15 @@ public class SidebarPanel extends JPanel {
         }
         
         add(Box.createVerticalGlue());
+        add(logoutLabel);
         add(Box.createRigidArea(new Dimension(0, 30)));
     }
-    
+
     private JLabel createMenuLabel(String text, boolean isActive) {
+        return createMenuLabel(text, isActive, UIStyles.HOVER_BLUE);
+    }
+
+    private JLabel createMenuLabel(String text, boolean isActive, Color hoverColor) {
         JLabel label = new JLabel("<html>" + text + "</html>");
         label.setFont(isActive ? UIStyles.ARIAL_BOLD_16 : UIStyles.ARIAL_PLAIN_16);
         label.setForeground(isActive ? UIStyles.LIGHT_BLUE : Color.WHITE);
@@ -94,10 +99,10 @@ public class SidebarPanel extends JPanel {
             public void mouseEntered(MouseEvent e) {
                 if (label != activeLabel) {
                     label.setOpaque(true);
-                    label.setBackground(UIStyles.HOVER_BLUE);
+                    label.setBackground(hoverColor);
                 }
             }
-            
+
             @Override
             public void mouseExited(MouseEvent e) {
                 if (label != activeLabel) {
