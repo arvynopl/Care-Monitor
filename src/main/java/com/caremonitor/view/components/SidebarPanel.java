@@ -32,7 +32,6 @@ public class SidebarPanel extends JPanel {
     
     private void initializeComponents() {
         setBackground(DARK_BLUE);
-        setPreferredSize(new Dimension(250, 0));
         
         
         healthDashboardLabel = createMenuLabel("Health Dashboard", true);
@@ -57,6 +56,8 @@ public class SidebarPanel extends JPanel {
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         titleLabel.setBorder(BorderFactory.createEmptyBorder(30, 20, 30, 20));
+        titleLabel.setMinimumSize(new Dimension(0, titleLabel.getPreferredSize().height));
+        titleLabel.setMaximumSize(new Dimension(Integer.MAX_VALUE, titleLabel.getPreferredSize().height));
         
         add(titleLabel);
         add(Box.createRigidArea(new Dimension(0, 20)));
@@ -76,6 +77,8 @@ public class SidebarPanel extends JPanel {
         add(Box.createVerticalGlue());
         add(logoutLabel);
         add(Box.createRigidArea(new Dimension(0, 30)));
+
+        updatePreferredWidth(titleLabel);
     }
     
     private JLabel createMenuLabel(String text, boolean isActive) {
@@ -84,6 +87,9 @@ public class SidebarPanel extends JPanel {
         label.setForeground(isActive ? LIGHT_BLUE : Color.WHITE);
         label.setBorder(BorderFactory.createEmptyBorder(15, 30, 15, 30));
         label.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        label.setMinimumSize(new Dimension(0, label.getPreferredSize().height));
+        label.setMaximumSize(new Dimension(Integer.MAX_VALUE, label.getPreferredSize().height));
         
         label.addMouseListener(new MouseAdapter() {
             @Override
@@ -173,5 +179,21 @@ public class SidebarPanel extends JPanel {
                 listener.actionPerformed(null);
             }
         });
+    }
+
+    private void updatePreferredWidth(JLabel titleLabel) {
+        int maxWidth = titleLabel.getPreferredSize().width + 40;
+
+        JLabel[] labels = { healthDashboardLabel, healthHistoryLabel, criticalParametersLabel, logoutLabel };
+        for (JLabel lbl : labels) {
+            if (lbl != null) {
+                int w = lbl.getPreferredSize().width + 60;
+                if (w > maxWidth) {
+                    maxWidth = w;
+                }
+            }
+        }
+
+        setPreferredSize(new Dimension(maxWidth, 0));
     }
 }
