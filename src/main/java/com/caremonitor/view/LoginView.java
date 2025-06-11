@@ -7,6 +7,7 @@ import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import com.caremonitor.view.components.StyledTextField;
 import com.caremonitor.view.components.PrimaryButton;
+import com.caremonitor.view.components.AuthLogoPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import net.miginfocom.swing.MigLayout;
@@ -84,27 +85,7 @@ public class LoginView extends JFrame {
         leftPanel.setBackground(UIStyles.DARK_BLUE);
         leftPanel.setPreferredSize(new Dimension(UIStyles.AUTH_LEFT_PANEL_WIDTH, 0));
         
-        JPanel logoPanel = new JPanel();
-        logoPanel.setBackground(UIStyles.DARK_BLUE);
-        logoPanel.setLayout(new BoxLayout(logoPanel, BoxLayout.Y_AXIS));
-        logoPanel.setBorder(new EmptyBorder(100, 50, 50, 50));
-        
-        JLabel logoLabel = new JLabel("Care Monitor");
-        logoLabel.setFont(UIStyles.ARIAL_BOLD_36);
-        logoLabel.setForeground(Color.WHITE);
-        logoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
-        JLabel subtitleLabel = new JLabel("Health Monitoring System");
-        subtitleLabel.setFont(UIStyles.ARIAL_PLAIN_18);
-        subtitleLabel.setForeground(UIStyles.SUBTITLE_GRAY);
-        subtitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
-        logoPanel.add(Box.createVerticalGlue());
-        logoPanel.add(logoLabel);
-        logoPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-        logoPanel.add(subtitleLabel);
-        logoPanel.add(Box.createVerticalGlue());
-        
+        AuthLogoPanel logoPanel = new AuthLogoPanel();
         leftPanel.add(logoPanel);
         
         JPanel rightPanel = new JPanel(new GridBagLayout());

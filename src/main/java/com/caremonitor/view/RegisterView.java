@@ -8,6 +8,7 @@ import com.caremonitor.model.Patient;
 import javax.swing.*;
 import com.caremonitor.view.components.StyledTextField;
 import com.caremonitor.view.components.PrimaryButton;
+import com.caremonitor.view.components.AuthLogoPanel;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder; // Import LineBorder
@@ -146,27 +147,7 @@ public class RegisterView extends JFrame {
         leftPanel.setBackground(UIStyles.DARK_BLUE);
         leftPanel.setPreferredSize(new Dimension(UIStyles.AUTH_LEFT_PANEL_WIDTH, 0));
 
-        JPanel logoContentPanel = new JPanel(); // Panel untuk menampung logo dan subtitle
-        logoContentPanel.setBackground(UIStyles.DARK_BLUE);
-        logoContentPanel.setLayout(new BoxLayout(logoContentPanel, BoxLayout.Y_AXIS));
-        logoContentPanel.setBorder(new EmptyBorder(50, 50, 50, 50)); // Internal padding
-
-        JLabel logoLabel = new JLabel("Care Monitor");
-        logoLabel.setFont(UIStyles.ARIAL_BOLD_36); // Ukuran font lebih besar
-        logoLabel.setForeground(Color.WHITE);
-        logoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        JLabel subtitleLabel = new JLabel("Health Monitoring System");
-        subtitleLabel.setFont(UIStyles.ARIAL_PLAIN_18); // Ukuran font lebih besar
-        subtitleLabel.setForeground(UIStyles.SUBTITLE_GRAY); // Warna sedikit abu-abu untuk subtitle
-        subtitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        logoContentPanel.add(Box.createVerticalGlue()); // Push content to center vertically
-        logoContentPanel.add(logoLabel);
-        logoContentPanel.add(Box.createRigidArea(new Dimension(0, 15))); // Jarak lebih besar
-        logoContentPanel.add(subtitleLabel);
-        logoContentPanel.add(Box.createVerticalGlue()); // Push content to center vertically
-
+        AuthLogoPanel logoContentPanel = new AuthLogoPanel();
         leftPanel.add(logoContentPanel); // Tambahkan logoContentPanel ke leftPanel yang ber-GridBagLayout
 
         // Right Panel (Forms)
