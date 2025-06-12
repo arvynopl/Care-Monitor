@@ -102,9 +102,12 @@ public class AuthController {
             criticalParametersView = new CriticalParametersView(user);
             contentPanel.add(criticalParametersView.getMainPanel(), "parameters");
         }
-        
+
         contentPanel.add(dashboardView.getMainPanel(), "dashboard");
         contentPanel.add(healthHistoryView.getMainPanel(), "history");
+
+        // Ensure the dashboard is shown initially to match the active sidebar
+        contentCardLayout.show(contentPanel, "dashboard");
         
         setupNavigation(sidebarPanel, contentCardLayout, contentPanel,
                        dashboardView, healthHistoryView, criticalParametersView,
