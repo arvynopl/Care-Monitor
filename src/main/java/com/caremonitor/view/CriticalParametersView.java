@@ -53,7 +53,7 @@ public class CriticalParametersView {
         headerPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 10, 20));
         
         JLabel titleLabel = new JLabel("Critical Parameters");
-        titleLabel.setFont(UIStyles.ARIAL_BOLD_24);
+        titleLabel.setFont(UIStyles.ARIAL_BOLD_28);
         titleLabel.setForeground(UIStyles.DARK_BLUE);
         headerPanel.add(titleLabel, BorderLayout.WEST);
         
@@ -66,9 +66,9 @@ public class CriticalParametersView {
         gbc.insets = new Insets(10, 10, 10, 10);
         
         JLabel patientLabel = new JLabel("Patient:");
-        patientLabel.setFont(UIStyles.ARIAL_BOLD_14);
+        patientLabel.setFont(UIStyles.ARIAL_BOLD_16);
         patientComboBox = new JComboBox<>();
-        patientComboBox.setPreferredSize(new Dimension(300, 30));
+        patientComboBox.setPreferredSize(new Dimension(300, 35));
         
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -85,90 +85,96 @@ public class CriticalParametersView {
         
         gbc.gridx = 0;
         JLabel parameterLabel = new JLabel("Parameter");
-        parameterLabel.setFont(UIStyles.ARIAL_BOLD_14);
+        parameterLabel.setFont(UIStyles.ARIAL_BOLD_16);
         formPanel.add(parameterLabel, gbc);
         
         gbc.gridx = 1;
         JLabel minLabel = new JLabel("Minimum");
-        minLabel.setFont(UIStyles.ARIAL_BOLD_14);
+        minLabel.setFont(UIStyles.ARIAL_BOLD_16);
         minLabel.setHorizontalAlignment(SwingConstants.CENTER);
         formPanel.add(minLabel, gbc);
         
         gbc.gridx = 2;
         JLabel maxLabel = new JLabel("Maximum");
-        maxLabel.setFont(UIStyles.ARIAL_BOLD_14);
+        maxLabel.setFont(UIStyles.ARIAL_BOLD_16);
         maxLabel.setHorizontalAlignment(SwingConstants.CENTER);
         formPanel.add(maxLabel, gbc);
         
         gbc.gridx = 3;
         JLabel unitLabel = new JLabel("Unit");
-        unitLabel.setFont(UIStyles.ARIAL_BOLD_14);
+        unitLabel.setFont(UIStyles.ARIAL_BOLD_16);
         unitLabel.setHorizontalAlignment(SwingConstants.CENTER);
         formPanel.add(unitLabel, gbc);
         
         gbc.gridy = 2;
         gbc.gridx = 0;
         JLabel heartRateLabel = new JLabel("Heart Rate:");
+        heartRateLabel.setFont(UIStyles.ARIAL_BOLD_16);
         formPanel.add(heartRateLabel, gbc);
         
         gbc.gridx = 1;
         minHeartRateField = new JTextField(10);
-        minHeartRateField.setPreferredSize(new Dimension(100, 30));
+        minHeartRateField.setPreferredSize(new Dimension(120, 35));
         formPanel.add(minHeartRateField, gbc);
         
         gbc.gridx = 2;
         maxHeartRateField = new JTextField(10);
-        maxHeartRateField.setPreferredSize(new Dimension(100, 30));
+        maxHeartRateField.setPreferredSize(new Dimension(120, 35));
         formPanel.add(maxHeartRateField, gbc);
         
         gbc.gridx = 3;
         JLabel bpmLabel = new JLabel("bpm");
+        bpmLabel.setFont(UIStyles.ARIAL_BOLD_16);
         formPanel.add(bpmLabel, gbc);
         
         gbc.gridy = 3;
         gbc.gridx = 0;
         JLabel bloodPressureLabel = new JLabel("Blood Pressure:");
+        bloodPressureLabel.setFont(UIStyles.ARIAL_BOLD_16);
         formPanel.add(bloodPressureLabel, gbc);
         
         gbc.gridx = 1;
         minBloodPressureField = new JTextField(10);
-        minBloodPressureField.setPreferredSize(new Dimension(100, 30));
+        minBloodPressureField.setPreferredSize(new Dimension(120, 35));
         formPanel.add(minBloodPressureField, gbc);
         
         gbc.gridx = 2;
         maxBloodPressureField = new JTextField(10);
-        maxBloodPressureField.setPreferredSize(new Dimension(100, 30));
+        maxBloodPressureField.setPreferredSize(new Dimension(120, 35));
         formPanel.add(maxBloodPressureField, gbc);
         
         gbc.gridx = 3;
         JLabel mmHgLabel = new JLabel("mmHg");
+        mmHgLabel.setFont(UIStyles.ARIAL_BOLD_16);
         formPanel.add(mmHgLabel, gbc);
         
         gbc.gridy = 4;
         gbc.gridx = 0;
         JLabel temperatureLabel = new JLabel("Temperature:");
+        temperatureLabel.setFont(UIStyles.ARIAL_BOLD_16);
         formPanel.add(temperatureLabel, gbc);
         
         gbc.gridx = 1;
         minTemperatureField = new JTextField(10);
-        minTemperatureField.setPreferredSize(new Dimension(100, 30));
+        minTemperatureField.setPreferredSize(new Dimension(120, 35));
         formPanel.add(minTemperatureField, gbc);
         
         gbc.gridx = 2;
         maxTemperatureField = new JTextField(10);
-        maxTemperatureField.setPreferredSize(new Dimension(100, 30));
+        maxTemperatureField.setPreferredSize(new Dimension(120, 35));
         formPanel.add(maxTemperatureField, gbc);
         
         gbc.gridx = 3;
         JLabel celsiusLabel = new JLabel("°C");
+        celsiusLabel.setFont(UIStyles.ARIAL_BOLD_16);
         formPanel.add(celsiusLabel, gbc);
         
         saveButton = new JButton("Save");
         saveButton.setBackground(UIStyles.DARK_BLUE);
         saveButton.setForeground(Color.WHITE);
         saveButton.setFocusPainted(false);
-        saveButton.setPreferredSize(new Dimension(120, 40));
-        saveButton.setFont(UIStyles.ARIAL_BOLD_14);
+        saveButton.setPreferredSize(new Dimension(140, 45));
+        saveButton.setFont(UIStyles.ARIAL_BOLD_16);
         
         gbc.gridx = 1;
         gbc.gridy = 5;
