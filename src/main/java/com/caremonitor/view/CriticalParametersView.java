@@ -53,7 +53,7 @@ public class CriticalParametersView {
         headerPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 10, 20));
         
         JLabel titleLabel = new JLabel("Critical Parameters");
-        titleLabel.setFont(UIStyles.ARIAL_BOLD_28);
+        titleLabel.setFont(UIStyles.ARIAL_BOLD_24);
         titleLabel.setForeground(UIStyles.DARK_BLUE);
         headerPanel.add(titleLabel, BorderLayout.WEST);
         

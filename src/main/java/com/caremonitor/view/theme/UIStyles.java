@@ -49,6 +49,8 @@ public final class UIStyles {
     public static final Font ARIAL_ITALIC_14 = new Font("Arial", Font.ITALIC, 14);
 
     // Common layout constants
-    public static final int AUTH_LEFT_PANEL_WIDTH = 500;
-    public static final int SIDEBAR_PANEL_WIDTH = 220;
+    // Width for the left side of authentication screens
+    // Reduced to give more room for the form on wide displays
+    public static final int AUTH_LEFT_PANEL_WIDTH = 400;
+    public static final int SIDEBAR_PANEL_WIDTH = 250;
 }

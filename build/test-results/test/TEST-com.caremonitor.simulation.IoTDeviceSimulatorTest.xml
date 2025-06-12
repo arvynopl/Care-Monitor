@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.caremonitor.simulation.IoTDeviceSimulatorTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2025-06-12T08:54:21.429Z" hostname="ARVYNO-777" time="120.294">
+  <properties/>
+  <testcase name="testConcurrentDataGeneration()" classname="com.caremonitor.simulation.IoTDeviceSimulatorTest" time="30.017"/>
+  <testcase name="testSimulatorInitialization()" classname="com.caremonitor.simulation.IoTDeviceSimulatorTest" time="0.0"/>
+  <testcase name="testDataValidation()" classname="com.caremonitor.simulation.IoTDeviceSimulatorTest" time="20.013"/>
+  <testcase name="testDataListenerManagement()" classname="com.caremonitor.simulation.IoTDeviceSimulatorTest" time="0.002"/>
+  <testcase name="testSimulatorWithEmptyPatientList()" classname="com.caremonitor.simulation.IoTDeviceSimulatorTest" time="0.001"/>
+  <testcase name="testDataGeneration()" classname="com.caremonitor.simulation.IoTDeviceSimulatorTest" time="5.014"/>
+  <testcase name="testSimulatorWithSinglePatient()" classname="com.caremonitor.simulation.IoTDeviceSimulatorTest" time="5.012"/>
+  <testcase name="testStartAndStop()" classname="com.caremonitor.simulation.IoTDeviceSimulatorTest" time="0.204"/>
+  <testcase name="testMultipleDataGeneration()" classname="com.caremonitor.simulation.IoTDeviceSimulatorTest" time="30.01"/>
+  <testcase name="testDataListenerExceptionHandling()" classname="com.caremonitor.simulation.IoTDeviceSimulatorTest" time="30.011"/>
+  <testcase name="testGetLatestData()" classname="com.caremonitor.simulation.IoTDeviceSimulatorTest" time="0.002"/>
+  <testcase name="testGetLatestDataConsistency()" classname="com.caremonitor.simulation.IoTDeviceSimulatorTest" time="0.0"/>
+  <system-out><![CDATA[Warning: Only received 2 data points instead of expected 3
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
