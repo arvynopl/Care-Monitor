@@ -12,15 +12,15 @@ import com.caremonitor.view.components.PatientCard;
 import com.caremonitor.view.components.AlertPanel;
 
 import javax.swing.*;
-// import javax.swing.border.EmptyBorder;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import net.miginfocom.swing.MigLayout;
 import com.caremonitor.view.theme.UIStyles;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DashboardView {
     private JPanel mainPanel;
+    private JPanel contentPanel;
     private JPanel patientsPanel;
     private JPanel alertsPanel;
     private JScrollPane patientsScrollPane;
@@ -46,7 +46,7 @@ public class DashboardView {
     }
 
     private void initializeComponents() {
-        mainPanel = new JPanel(new MigLayout("fill", "[grow][300!]", "[]20[grow]"));
+        mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(Color.WHITE);
 
         JPanel headerPanel = new JPanel(new BorderLayout());
@@ -58,10 +58,9 @@ public class DashboardView {
         titleLabel.setForeground(UIStyles.DARK_BLUE);
         headerPanel.add(titleLabel, BorderLayout.WEST);
 
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-        splitPane.setBorder(BorderFactory.createEmptyBorder(10, 20, 20, 20));
-        splitPane.setDividerSize(4);
-        splitPane.setResizeWeight(0.7); // allocate more space to patient cards
+        contentPanel = new JPanel(new BorderLayout());
+        contentPanel.setBorder(new EmptyBorder(10, 20, 20, 20));
+        contentPanel.setBackground(Color.WHITE);
 
         JPanel patientsSection = new JPanel(new BorderLayout());
         patientsSection.setBackground(Color.WHITE);
@@ -74,9 +73,9 @@ public class DashboardView {
 
         patientHeaderPanel.add(patientsLabel, BorderLayout.WEST);
 
-        patientsPanel = new JPanel();
-        patientsPanel.setLayout(new BoxLayout(patientsPanel, BoxLayout.Y_AXIS));
+        patientsPanel = new JPanel(new GridLayout(0, 2, 20, 20));
         patientsPanel.setBackground(Color.WHITE);
+        patientsPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         patientsScrollPane = new JScrollPane(patientsPanel);
         patientsScrollPane.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
@@ -104,13 +103,11 @@ public class DashboardView {
 
         alertsSection.setPreferredSize(new Dimension(300, 0));
 
-        splitPane.setLeftComponent(patientsSection);
-        splitPane.setRightComponent(alertsSection);
-        // Position divider so approximately 70% of the width is used by the patients section
-        splitPane.setDividerLocation(0.7);
+        contentPanel.add(patientsSection, BorderLayout.CENTER);
+        contentPanel.add(alertsSection, BorderLayout.EAST);
 
-        mainPanel.add(headerPanel, "dock north");
-        mainPanel.add(splitPane, "grow");
+        mainPanel.add(headerPanel, BorderLayout.NORTH);
+        mainPanel.add(contentPanel, BorderLayout.CENTER);
     }
 
     private void loadPatients() {
@@ -145,7 +142,6 @@ public class DashboardView {
                     cardWrapper.add(patientCard, BorderLayout.CENTER);
 
                     patientsPanel.add(cardWrapper);
-                    patientsPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
                     startSimulatorForPatient(patient);
                 }
