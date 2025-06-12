@@ -191,11 +191,21 @@ public class DashboardView {
 
     private void updatePatientCard(int patientId, HealthData data) {
         for (Component component : patientsPanel.getComponents()) {
-            if (component instanceof PatientCard) {
+            if (component instanceof JPanel) {
+                for (Component inner : ((JPanel) component).getComponents()) {
+                    if (inner instanceof PatientCard) {
+                        PatientCard card = (PatientCard) inner;
+                        if (card.getPatient().getId() == patientId) {
+                            card.updateHealthData(data);
+                            return;
+                        }
+                    }
+                }
+            } else if (component instanceof PatientCard) {
                 PatientCard card = (PatientCard) component;
                 if (card.getPatient().getId() == patientId) {
                     card.updateHealthData(data);
-                    break;
+                    return;
                 }
             }
         }
