@@ -318,29 +318,81 @@ public class CriticalParametersView {
             double maxTemperature = Double.parseDouble(maxTemperatureField.getText().trim());
             
             if (!minBloodPressure.contains("/") || !maxBloodPressure.contains("/")) {
-                JOptionPane.showMessageDialog(mainPanel, 
-                    "Blood pressure should be in format 'systolic/diastolic' (e.g., 120/80)", 
-                    "Validation Error", 
+                JOptionPane.showMessageDialog(mainPanel,
+                    "Blood pressure should be in format 'systolic/diastolic' (e.g., 120/80)",
+                    "Validation Error",
                     JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            
+
+            String[] minBPParts = minBloodPressure.split("/");
+            String[] maxBPParts = maxBloodPressure.split("/");
+
+            if (minBPParts.length != 2 || maxBPParts.length != 2) {
+                JOptionPane.showMessageDialog(mainPanel,
+                    "Blood pressure should be in format 'systolic/diastolic' (e.g., 120/80)",
+                    "Validation Error",
+                    JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            int minSystolic = Integer.parseInt(minBPParts[0].trim());
+            int minDiastolic = Integer.parseInt(minBPParts[1].trim());
+            int maxSystolic = Integer.parseInt(maxBPParts[0].trim());
+            int maxDiastolic = Integer.parseInt(maxBPParts[1].trim());
+
+            if (minHeartRate < 30 || minHeartRate > 200 ||
+                maxHeartRate < 30 || maxHeartRate > 200) {
+                JOptionPane.showMessageDialog(mainPanel,
+                    "Heart rate must be between 30 and 200 bpm",
+                    "Validation Error",
+                    JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (minTemperature < 32.0 || minTemperature > 42.0 ||
+                maxTemperature < 32.0 || maxTemperature > 42.0) {
+                JOptionPane.showMessageDialog(mainPanel,
+                    "Temperature must be between 32.0 and 42.0 °C",
+                    "Validation Error",
+                    JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (minSystolic < 70 || minSystolic > 200 ||
+                maxSystolic < 70 || maxSystolic > 200 ||
+                minDiastolic < 40 || minDiastolic > 130 ||
+                maxDiastolic < 40 || maxDiastolic > 130) {
+                JOptionPane.showMessageDialog(mainPanel,
+                    "Blood pressure must be within 70-200/40-130 mmHg",
+                    "Validation Error",
+                    JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             if (minHeartRate >= maxHeartRate) {
-                JOptionPane.showMessageDialog(mainPanel, 
-                    "Minimum heart rate must be less than maximum heart rate", 
-                    "Validation Error", 
+                JOptionPane.showMessageDialog(mainPanel,
+                    "Minimum heart rate must be less than maximum heart rate",
+                    "Validation Error",
                     JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            
+
             if (minTemperature >= maxTemperature) {
-                JOptionPane.showMessageDialog(mainPanel, 
-                    "Minimum temperature must be less than maximum temperature", 
-                    "Validation Error", 
+                JOptionPane.showMessageDialog(mainPanel,
+                    "Minimum temperature must be less than maximum temperature",
+                    "Validation Error",
                     JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            
+
+            if (minSystolic >= maxSystolic || minDiastolic >= maxDiastolic) {
+                JOptionPane.showMessageDialog(mainPanel,
+                    "Minimum blood pressure must be less than maximum blood pressure",
+                    "Validation Error",
+                    JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             Patient selectedPatient = (Patient) patientComboBox.getSelectedItem();
             
             CriticalParameter criticalParameter = new CriticalParameter(selectedPatient.getId());
@@ -367,9 +419,9 @@ public class CriticalParametersView {
             }
             
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(mainPanel, 
-                "Please enter valid numeric values for heart rate and temperature", 
-                "Validation Error", 
+            JOptionPane.showMessageDialog(mainPanel,
+                "Please enter valid numeric values for heart rate, temperature, and blood pressure",
+                "Validation Error",
                 JOptionPane.ERROR_MESSAGE);
         }
     }
