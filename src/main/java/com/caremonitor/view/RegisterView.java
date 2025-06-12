@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class RegisterView extends JFrame {
     private StyledTextField nameField;
@@ -56,6 +57,9 @@ public class RegisterView extends JFrame {
     private final Dimension FIELD_SIZE = new Dimension(350, 40); // Ukuran field yang konsisten
     private final Dimension BUTTON_SIZE = new Dimension(350, 45); // Ukuran tombol yang konsisten
     private final Dimension CODE_FIELD_SIZE = new Dimension(150, 30); // Ukuran field kode pasien
+
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$");
+    private static final Pattern PHONE_PATTERN = Pattern.compile("^[0-9]+$");
 
     // Borders for validation feedback
     private Border defaultFieldBorder;
@@ -532,6 +536,8 @@ public class RegisterView extends JFrame {
     private boolean validateStep1() {
         boolean valid = true;
 
+        StringBuilder message = new StringBuilder();
+
         if (nameField.getText().trim().isEmpty()) {
             nameField.setBorder(errorBorder);
             valid = false;
@@ -539,8 +545,13 @@ public class RegisterView extends JFrame {
             nameField.setBorder(defaultFieldBorder);
         }
 
-        if (emailField.getText().trim().isEmpty()) {
+        String email = emailField.getText().trim();
+        if (email.isEmpty()) {
             emailField.setBorder(errorBorder);
+            valid = false;
+        } else if (!EMAIL_PATTERN.matcher(email).matches()) {
+            emailField.setBorder(errorBorder);
+            message.append("Invalid email format.\n");
             valid = false;
         } else {
             emailField.setBorder(defaultFieldBorder);
@@ -553,8 +564,13 @@ public class RegisterView extends JFrame {
             passwordField.setBorder(defaultFieldBorder);
         }
 
-        if (contactField.getText().trim().isEmpty()) {
+        String contact = contactField.getText().trim();
+        if (contact.isEmpty()) {
             contactField.setBorder(errorBorder);
+            valid = false;
+        } else if (!PHONE_PATTERN.matcher(contact).matches()) {
+            contactField.setBorder(errorBorder);
+            message.append("Invalid phone number format.\n");
             valid = false;
         } else {
             contactField.setBorder(defaultFieldBorder);
@@ -565,6 +581,10 @@ public class RegisterView extends JFrame {
             valid = false;
         } else {
             roleComboBox.setBorder(defaultComboBorder);
+        }
+
+        if (message.length() > 0) {
+            showErrorMessage(message.toString().trim());
         }
 
         return valid;
@@ -718,6 +738,13 @@ public class RegisterView extends JFrame {
         LoginView loginView = new LoginView();
         loginView.setVisible(true);
         this.dispose();
+    }
+
+    private void showErrorMessage(String message) {
+        JOptionPane.showMessageDialog(this,
+            message,
+            "Registration Error",
+            JOptionPane.ERROR_MESSAGE);
     }
 
 }
