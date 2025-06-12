@@ -29,7 +29,7 @@ public class HealthDataController {
     }
     
     public boolean saveHealthData(HealthData healthData) {
-        String sql = "INSERT INTO health_data (patient_id, heart_rate, blood_pressure, temperature, position) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO health_data (patient_id, heart_rate, blood_pressure, temperature, position, timestamp) VALUES (?, ?, ?, ?, ?, ?)";
         
         try (Connection conn = dbManager.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -39,7 +39,8 @@ public class HealthDataController {
             pstmt.setString(3, healthData.getBloodPressure());
             pstmt.setDouble(4, healthData.getTemperature());
             pstmt.setString(5, healthData.getPosition());
-            
+            pstmt.setTimestamp(6, Timestamp.valueOf(healthData.getTimestamp()));
+
             int result = pstmt.executeUpdate();
             return result > 0;
         } catch (SQLException e) {
