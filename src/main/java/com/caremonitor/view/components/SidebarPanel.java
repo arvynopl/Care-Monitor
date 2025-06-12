@@ -31,8 +31,9 @@ public class SidebarPanel extends JPanel {
     
     private void initializeComponents() {
         setBackground(UIStyles.DARK_BLUE);
-        setMinimumSize(new Dimension(150, 0));
-        setMaximumSize(new Dimension(300, Integer.MAX_VALUE));
+        setPreferredSize(new Dimension(UIStyles.SIDEBAR_PANEL_WIDTH, 0));
+        setMinimumSize(new Dimension(UIStyles.SIDEBAR_PANEL_WIDTH, 0));
+        setMaximumSize(new Dimension(UIStyles.SIDEBAR_PANEL_WIDTH, Integer.MAX_VALUE));
 
         healthDashboardLabel = createMenuLabel("Health Dashboard", true);
         healthHistoryLabel = createMenuLabel("Health History", false);
