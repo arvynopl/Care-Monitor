@@ -79,10 +79,7 @@ public class DatabaseManager {
     }
     
     public Connection getConnection() throws SQLException {
-        if (connection == null || connection.isClosed()) {
-            connection = DriverManager.getConnection(URL, USER, PASSWORD);
-        }
-        return connection;
+        return DriverManager.getConnection(URL, USER, PASSWORD);
     }
     
     private void initializeDatabase() {
