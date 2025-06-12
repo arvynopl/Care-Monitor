@@ -56,7 +56,7 @@ public class RegisterView extends JFrame {
 
     private final Dimension FIELD_SIZE = new Dimension(350, 40); // Ukuran field yang konsisten
     private final Dimension BUTTON_SIZE = new Dimension(350, 45); // Ukuran tombol yang konsisten
-    private final Dimension CODE_FIELD_SIZE = new Dimension(150, 30); // Ukuran field kode pasien
+    private final Dimension CODE_FIELD_SIZE = new Dimension(200, 30); // Ukuran field kode pasien
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$");
     private static final Pattern PHONE_PATTERN = Pattern.compile("^[0-9]+$");
@@ -346,6 +346,7 @@ public class RegisterView extends JFrame {
                 codeField.setEnabled(false);
                 codeField.setPlaceholderText("Patient Unique Code");
                 codeField.setPreferredSize(CODE_FIELD_SIZE);
+                codeField.setMinimumSize(CODE_FIELD_SIZE);
                 caregiverPatientCodes.put(checkbox, codeField);
 
                 patientRowPanel.add(checkbox);
@@ -455,6 +456,7 @@ public class RegisterView extends JFrame {
                 codeField.setEnabled(false);
                 codeField.setPlaceholderText("Patient Unique Code");
                 codeField.setPreferredSize(CODE_FIELD_SIZE);
+                codeField.setMinimumSize(CODE_FIELD_SIZE);
                 familyPatientCodes.put(checkbox, codeField);
 
                 patientRowPanel.add(checkbox);
