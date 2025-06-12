@@ -50,4 +50,5 @@ public final class UIStyles {
 
     // Common layout constants
     public static final int AUTH_LEFT_PANEL_WIDTH = 500;
+    public static final int SIDEBAR_PANEL_WIDTH = 220;
 }
