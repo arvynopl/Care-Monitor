@@ -73,7 +73,7 @@ public class DashboardView {
 
         patientHeaderPanel.add(patientsLabel, BorderLayout.WEST);
 
-        patientsPanel = new JPanel(new GridLayout(0, 2, 20, 20));
+        patientsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 20));
         patientsPanel.setBackground(Color.WHITE);
         patientsPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
